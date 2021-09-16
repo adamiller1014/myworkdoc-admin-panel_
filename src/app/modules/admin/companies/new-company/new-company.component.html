@@ -1,0 +1,73 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+        <div class="flex-auto p-6 sm:p-10">
+
+            <div class="w-full">
+                <div class="text-xl">Company</div>
+                <div class="text-secondary">Company information</div>
+            </div>
+            <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+              
+                <!-- Title -->
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Name</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'" matPrefix></mat-icon>
+                        <input [formControlName]="'name'" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Address</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:home'" matPrefix></mat-icon>
+                        <input [formControlName]="'address'" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="sm:col-span-1">
+
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Hire Date</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:calendar'" matPrefix></mat-icon>
+                        <input [formControlName]="'joined_on'" matInput [matDatepicker]="joinedOnPicker">
+                        <mat-datepicker-toggle matSuffix [for]="joinedOnPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #joinedOnPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Active</mat-label>
+
+                        <input [hidden]="true" [formControlName]="'active'" matInput>
+                        <mat-checkbox [formControlName]="'active'">Active?</mat-checkbox>
+                    </mat-form-field>
+                </div>
+
+
+            
+            </div>
+
+
+
+            <!-- Divider -->
+            <div class="mt-11 mb-10 border-t"></div>
+
+            <!-- Actions -->
+            <div class="flex items-center justify-end">
+                <button [routerLink]="['/companies' ]" mat-stroked-button type="button">
+                    Cancel
+                </button>
+                <button class="ml-4" mat-flat-button type="submit" [color]="'primary'">Save
+                </button>
+            </div>
+
+
+
+        </div>
+    </form>
+
+
+</div>

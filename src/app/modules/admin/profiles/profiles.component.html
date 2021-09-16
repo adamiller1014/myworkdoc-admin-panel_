@@ -1,0 +1,34 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <!-- CONTENT GOES HERE -->
+        <button class="mb-4" [routerLink]="['/profiles/profile' ]" mat-raised-button color="primary">Add User</button>
+
+        <dx-data-grid id="gridContainer" [dataSource]="profiles" keyExpr="id" [showColumnLines]="true"
+            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" (onRowClick)="gotoRow($event)">
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+            <dxi-column dataField="id" caption="ID" [width]="80" sortOrder="asc"></dxi-column>
+
+            <dxi-column dataField="created_on" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm"
+                [width]="180"></dxi-column>
+
+            <dxi-column dataField="company_name" ></dxi-column>
+            <dxi-column dataField="first_name"></dxi-column>
+            <dxi-column dataField="last_name"></dxi-column>
+            <dxi-column dataField="active"></dxi-column>
+            <dxi-column dataField="company_active"></dxi-column>
+
+        </dx-data-grid>
+
+        <!-- {
+
+        } -->
+
+
+    </div>
+
+</div>

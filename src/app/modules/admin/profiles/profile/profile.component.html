@@ -1,0 +1,185 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <form [formGroup]="accountForm" (ngSubmit)="submitNew()">
+        <div class="flex-auto p-6 sm:p-10">
+
+            <div class="flex flex-row">
+                <div class="w-full">
+                    <div class="text-xl">Profile</div>
+                    <div class="text-secondary">Profile information</div>
+                </div>
+                <div class="justify-end">
+                    <button *ngIf="profile_id" (click)="resetPassword()" mat-stroked-button type="button">
+                        Reset Password
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+                <!-- Company -->
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full" appearance="fill">
+                        <mat-label>Company</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'" matPrefix>
+                        </mat-icon>
+                        <mat-select required (selectionChange)="choseCompany($event.value)"
+                            [formControlName]="'company_id'">
+                            <mat-option (change)="choseCompany(company.id)" *ngFor="let company of companies"
+                                [value]="company.id">
+                                {{company.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- Profile Type -->
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full" appearance="fill">
+                        <mat-label>Profile Type</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:identification'" matPrefix>
+                        </mat-icon>
+                        <mat-select required [formControlName]="'profile_type_id'">
+                            <mat-option *ngFor="let profile_type of profile_types" [value]="profile_type.id">
+                                {{profile_type.type}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full" appearance="fill">
+                        <mat-label>Role</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:cursor-click'" matPrefix>
+                        </mat-icon>
+                        <mat-select required [formControlName]="'role_id'">
+                            <mat-option *ngFor="let role of roles" [value]="role.id">
+                                {{role.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- Name -->
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>First Name</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
+                        <input required [formControlName]="'first_name'" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Last Name</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:user'" matPrefix></mat-icon>
+                        <input required [formControlName]="'last_name'" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Title</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:briefcase'" matPrefix></mat-icon>
+                        <input [formControlName]="'title'" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>EIN</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:information-circle'" matPrefix>
+                        </mat-icon>
+                        <input required [formControlName]="'ein'" matInput>
+                    </mat-form-field>
+                </div>
+
+                <!-- Email -->
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Email</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:mail'" matPrefix></mat-icon>
+                        <input required [formControlName]="'email'" matInput>
+                    </mat-form-field>
+                </div>
+                <!-- Phone -->
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Phone</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:phone'" matPrefix></mat-icon>
+                        <input required [formControlName]="'cell_number'" matInput>
+                    </mat-form-field>
+                    <span *ngIf="accountForm.get('cell_number').hasError('required')">
+                        This field is required.
+                    </span>
+                    <span *ngIf="accountForm.get('cell_number').hasError('pattern')">
+                        Must match xxx-xxx-xxx
+                    </span>
+                </div>
+
+
+
+                <div class="sm:col-span-1">
+
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Hire Date</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:calendar'" matPrefix></mat-icon>
+                        <input [formControlName]="'hire_date'" matInput [matDatepicker]="hirepicker">
+                        <mat-datepicker-toggle matSuffix [for]="hirepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #hirepicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="sm:col-span-1">
+
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Birth Date</mat-label>
+                        <input [formControlName]="'birth_date'" matInput [matDatepicker]="birthPicker">
+                        <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #birthPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="!accountForm.value.active" class="sm:col-span-1">
+
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Terminated Date</mat-label>
+                        <input [formControlName]="'terminated_date'" matInput [matDatepicker]="termPicker">
+                        <mat-datepicker-toggle matSuffix [for]="termPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #termPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div class="sm:col-span-4">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Home Address</mat-label>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:home'" matPrefix></mat-icon>
+                        <input [formControlName]="'home_address'" matInput>
+                    </mat-form-field>
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Divider -->
+            <div class="mt-11 mb-10 border-t"></div>
+
+            <mat-checkbox *ngIf="profile_id" [formControlName]="'active'" class="">Active</mat-checkbox>
+
+
+            <!-- Actions -->
+            <div class="flex items-center justify-end">
+                <button [routerLink]="['/profiles' ]" mat-stroked-button type="button">
+                    Cancel
+                </button>
+                <button [disabled]="!accountForm.valid" class="ml-4" mat-flat-button type="submit"
+                    [color]="'primary'">Save
+                </button>
+            </div>
+
+
+
+        </div>
+    </form>
+
+
+</div>

@@ -1,0 +1,28 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <!-- CONTENT GOES HERE -->
+
+        <button class="mb-4" [routerLink]="['/companies/new-company' ]" mat-raised-button color="primary">Add Company</button>
+
+        <dx-data-grid id="gridContainer" [dataSource]="companies" keyExpr="id" [showColumnLines]="true"
+            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" (onRowClick)="gotoRow($event)">
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+            <dxi-column dataField="id" caption="ID" [width]="80"></dxi-column>
+
+            <dxi-column dataField="joined_on" alignment="right" dataType="date" format="M/d/yyyy"
+                [width]="180"></dxi-column>
+
+            <dxi-column dataField="name"></dxi-column>
+            <dxi-column dataField="active"></dxi-column>
+
+        </dx-data-grid>
+
+
+    </div>
+
+</div>
