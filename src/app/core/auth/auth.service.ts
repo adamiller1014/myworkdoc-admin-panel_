@@ -86,7 +86,7 @@ export class AuthService
         }
 
 
-        return this._httpClient.post(globalConfig.REST_API + 'auth/login', postData).pipe(
+        return this._httpClient.post(globalConfig.REST_API + 'auth/login', postData,{ withCredentials: true }).pipe(
             switchMap((response: any) => {
                 if (!response) {
                     return of(response);
