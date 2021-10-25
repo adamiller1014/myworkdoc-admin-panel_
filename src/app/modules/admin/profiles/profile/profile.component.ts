@@ -137,15 +137,15 @@ export class ProfileComponent implements OnInit {
             first_name: this.accountForm.get('first_name').value,
             last_name: this.accountForm.get('last_name').value,
             email: this.accountForm.get('email').value,
-            hire_date: new Date(this.accountForm.get('hire_date').value).toLocaleDateString(),
+            hire_date: new Date(this.accountForm.get('hire_date').value),
             title: this.accountForm.get('title').value,
             cell_number: this.accountForm.get('cell_number').value,
-            birth_date: new Date(this.accountForm.get('birth_date').value).toLocaleDateString(),
+            birth_date: new Date(this.accountForm.get('birth_date').value),
             home_address: this.accountForm.get('home_address').value,
             company_id: this.accountForm.get('company_id').value,
             profile_type_id: this.accountForm.get('profile_type_id').value,
             role_id: this.accountForm.get('role_id').value,
-            terminated_date: new Date(this.accountForm.get('terminated_date').value).toLocaleDateString(),
+            terminated_date: new Date(this.accountForm.get('terminated_date').value),
             active: this.accountForm.get('active').value
         }
         if (!this.profile_id) {
