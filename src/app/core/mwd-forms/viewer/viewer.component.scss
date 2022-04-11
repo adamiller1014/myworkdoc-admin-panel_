@@ -1,0 +1,25 @@
+  .sig-container {
+      margin-top: 15px;
+    background-image: url(/assets/sign-here.png);
+    background-repeat: no-repeat;
+    background-position-y: 95%;
+   border-style: dashed;
+   border-width: 1px;
+  }
+
+
+
+  .list-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  .rating-radio-group {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0;
+  }
+  
+  .radio-button {
+    margin: 5px;
+  }

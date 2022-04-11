@@ -22,8 +22,8 @@ export const appConfig: AppConfig = {
 };
 
 export const globalConfig = {
-   // REST_API: 'http://localhost:3000/api/v4/',
+    REST_API: 'http://localhost:3000/api/v4/',
    // REST_API: 'https://api4.myworkdoc.com/api/v4/',
-    REST_API: 'https://apipreview.myworkdoc.com/api/v4/',
+  //  REST_API: 'https://apipreview.myworkdoc.com/api/v4/',
 
 }

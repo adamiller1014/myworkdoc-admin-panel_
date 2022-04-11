@@ -1,0 +1,96 @@
+<mat-card>
+  <mat-card-title>New Form</mat-card-title>
+  <mat-card-content fxLayout="column" fxLayoutAlign="space-between start">
+
+    <mat-form-field style="width: 100%;" appearance="outline">
+      <mat-label>Form Title</mat-label>
+      <input [(ngModel)]="form_data.title" matInput placeholder="Report">
+    </mat-form-field>
+
+    <mat-checkbox *ngIf="showDefaultCheckbox" color="primary" [(ngModel)]="form_data.default">Default</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="form_data.active">Active</mat-checkbox>
+
+  </mat-card-content>
+
+</mat-card>
+
+<mat-card style="margin-top: 10px;">
+  <mat-card-title>Fields</mat-card-title>
+  <button mat-raised-button color="accent" (click)="addPage()">New Page</button>
+  <nav mat-tab-nav-bar>
+
+    <a mat-tab-link *ngFor="let page of form_data.pages; let i = index" (click)="gotoPage(i)" [active]="activePage == i"> Page {{i+1}}<button [disabled]='form_data.pages.length <2' mat-icon-button (click)="deletePage(i)">
+      <mat-icon>delete</mat-icon>
+  </button></a>
+  </nav>
+  <mat-card-content fxLayout="column" fxLayoutAlign="space-between start">
+
+    <div style="width: 100%;" *ngFor="let field of form_data.pages[activePage].fields; let i = index">
+      <div fxLayout="row">
+
+        <div fxFlex>
+          <mat-form-field *ngIf="field.type == 'select'" fxFlex appearance="outline">
+            <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+            <mat-select disabled>
+            </mat-select>
+          </mat-form-field>
+          <mat-checkbox *ngIf="field.type == 'checkbox'" color="primary" [(ngModel)]="form_data.default" disabled>
+            {{field.title}} <span *ngIf="field.required">*</span></mat-checkbox>
+            <h1 *ngIf="field.type == 'header'">{{field.title}}</h1>
+            <p *ngIf="field.type == 'description'">{{field.description}}</p>
+            <div fxFlex *ngIf="field.type == 'signature'" class="sig-container" style="width: 100%;">
+              
+
+              </div>
+            <p *ngIf="field.type == 'file-uploader'">File Uploader: {{field.title}} <span *ngIf="field.required">*</span></p>
+
+          <mat-form-field *ngIf="field.type == 'input'" fxFlex appearance="outline">
+            <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+            <input matInput disabled >
+          </mat-form-field>
+
+          <mat-form-field *ngIf="field.type == 'date-time'" fxFlex appearance="outline">
+            <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+            <input disabled matInput [matDatepicker]="picker" [(ngModel)]="field.value">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        </div>
+        <div style="margin-left: 10px;">
+          <button [disabled]="i == 0" mat-fab color="primary" (click)="moveField(i,'up')">
+            <mat-icon aria-hidden="false" aria-label="Move Up">arrow_upward</mat-icon>
+          </button>
+          <button [disabled]="i == form_data.pages[activePage].fields.length-1" mat-fab color="primary" (click)="moveField(i,'down')">
+            <mat-icon aria-hidden="false" aria-label="Move Down">arrow_downward</mat-icon>
+          </button>
+          <button mat-fab color="primary" (click)="openDialog('edit',field)">
+            <mat-icon aria-hidden="false" aria-label="Edit">edit</mat-icon>
+          </button>
+          <button mat-fab color="warn" (click)="deleteField(i)">
+            <mat-icon aria-hidden="false" aria-label="Delete">delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    <button style="width: 100%;" fxFlex mat-raised-button color="accent" (click)="openDialog('new',null)">New Field</button>
+
+
+
+
+
+
+  </mat-card-content>
+
+
+</mat-card>
+<div style="margin-top: 10px; width: 100%;">
+  <button *ngIf="showPreviewButton" fxFlex mat-raised-button color="warn" (click)="preview()">Preview</button>
+  <button fxFlex mat-raised-button color="primary" (click)="save()">Save</button>
+</div>
+
