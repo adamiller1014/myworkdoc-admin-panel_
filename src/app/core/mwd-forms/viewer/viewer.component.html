@@ -1,0 +1,176 @@
+<mat-card>
+    <mat-card-title>{{form_data.title}}</mat-card-title>
+
+
+    <mat-card-content fxLayout="column" fxLayoutAlign="space-between start">
+
+        <div style="width: 100%;" *ngFor="let field of form_data.pages[activePage].fields; let i = index">
+
+            <div *ngIf="isVisible(field,i)" [ngSwitch]="field.type">
+                <div *ngSwitchCase="'select'">
+
+                    <div [ngSwitch]="field.settings.style">
+
+                        <div *ngSwitchCase="'dropdown'">
+
+                            <mat-form-field fxFlex appearance="outline">
+                                <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+                                <mat-select [(ngModel)]="field.value" [multiple]="field.settings.multiple">
+                                    <mat-option *ngFor="let item of field.settings.items" [value]="item.value">
+                                        {{item.label}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div *ngSwitchCase="'list'">
+                            <h3 style="font-weight: bold;">{{field.title}} <span *ngIf="field.required">*</span></h3>
+                            <div *ngIf="field.settings.multiple">
+                                <div *ngFor="let item of field.settings.items">
+                                    <mat-checkbox [(ngModel)]="item.checked" (change)="selectedCheckbox(field,item.value, $event.checked)" color="primary">{{item.label}}</mat-checkbox>
+                                </div>
+                            </div>
+                            <div *ngIf="!field.settings.multiple">
+                                <mat-radio-group class="list-radio-group" [(ngModel)]="field.value">
+                                <mat-radio-button color="primary" class="radio-button" *ngFor="let item of field.settings.items"  [value]="item.value">
+                                    {{item.label}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+
+
+                                
+
+                            </div>
+                             
+
+
+
+                        </div>
+                        <div *ngSwitchCase="'rating'">
+                            <h3 style="font-weight: bold;">{{field.title}} <span *ngIf="field.required">*</span></h3>
+                            <div *ngIf="field.settings.multiple" fxLayoutAlign="space-around center">
+                                <div *ngFor="let item of field.settings.items">
+                                    <mat-checkbox [(ngModel)]="item.checked" (change)="selectedCheckbox(field,item.value, $event.checked)" color="primary">{{item.label}}</mat-checkbox>
+                                </div>
+                            </div>
+                            <div *ngIf="!field.settings.multiple" fxLayoutAlign="space-around center">
+                                <mat-radio-group class="rating-radio-group" [(ngModel)]="field.value">
+                                <mat-radio-button color="primary" class="radio-button" *ngFor="let item of field.settings.items"  [value]="item.value">
+                                    {{item.label}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+
+
+                                
+
+                            </div>
+                             
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+                <div *ngSwitchCase="'header'">
+                    <h1>{{field.title}}</h1>
+                </div>
+                <div *ngSwitchCase="'description'">
+                    <p>{{field.description}}</p>
+                </div>
+                <div *ngSwitchCase="'input'">
+                    
+                    <mat-form-field *ngIf="!field.settings.multiLine" fxFlex appearance="outline">
+                        <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+                        <input [type]="field.settings.type" matInput [(ngModel)]="field.value">
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="field.settings.multiLine" fxFlex appearance="outline">
+                        <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+                        <textarea matInput [(ngModel)]="field.value"></textarea>
+                    </mat-form-field>
+                </div>
+                <div *ngSwitchCase="'rich-input'">
+                    <span *ngIf="field.required">*</span>
+                    <quill-editor flex [(ngModel)]="field.value"></quill-editor>
+
+                </div>
+                <div *ngSwitchCase="'date-time'">
+                    <mat-form-field fxFlex appearance="outline">
+                        <mat-label>Choose a date <span *ngIf="field.required">*</span></mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="field.value">
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div *ngSwitchCase="'checkbox'">
+                    <mat-checkbox color="primary" [(ngModel)]="field.value">
+                        {{field.title}} <span *ngIf="field.required">*</span></mat-checkbox>
+                </div>
+                <div *ngSwitchCase="'file-uploader'">
+                    <div style="text-align:center;">
+                        <mat-card>
+                            <mat-card-content>
+                                <ul>
+                                    <li *ngFor="let file of field.value">
+                                        <span id="file-label">
+
+                                        </span>
+                                    </li>
+                                </ul>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-button color="warn" (click)="onFileUpload()">
+                                    <mat-icon>file_upload</mat-icon>
+                                    Upload
+                                </button>
+                            </mat-card-actions>
+                        </mat-card><input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
+                            style="display:none;" />
+                    </div>
+                </div>
+                <div #sigContainer *ngSwitchCase="'signature'" class="sig-container" style="width: 100%;">
+
+                    <signature-pad [options]="{id:field.id}" (onEndEvent)="drawEnded(field)"></signature-pad>
+
+
+                </div>
+                <div *ngSwitchDefault>
+                    UNKNOWN
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div *ngIf="form_data.pages.length >1" style="width: 100%;" fxFlex fxLayout="row" fxLayoutAlign="space-between">
+
+            <button [disabled]="activePage < 1" style="margin-top: 15px;" mat-raised-button color="primary"
+                (click)="previousPage()">Previous</button>
+
+
+            <button *ngIf="activePage+1 != form_data.pages.length" style="margin-top: 15px;" mat-raised-button
+                color="primary" (click)="nextPage()">Next</button>
+            <button *ngIf="activePage+1 == form_data.pages.length" style="margin-top: 15px;" mat-raised-button
+                color="primary" (click)="submit()">Submit</button>
+
+        </div>
+        <div *ngIf="form_data.pages.length == 1" style="width: 100%;" fxFlex fxLayout="row" fxLayoutAlign="end">
+
+
+            <button *ngIf="activePage+1 == form_data.pages.length" style="margin-top: 15px;" mat-raised-button
+                color="primary" (click)="submit()">Submit</button>
+
+        </div>
+
+
+
+    </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,14 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <mat-form-field appearance="fill">
+        <mat-label>Case Form Type</mat-label>
+        <mat-select [(ngModel)]="case_form_type_id" name="case_form_type_id">
+          <mat-option *ngFor="let type of form_types" [value]="type.id">
+            {{type.name}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+    <mwd-form-builder [form_data]="form_data" (onSaveEvent)="onSubmit($event)"></mwd-form-builder>
+
+</div>

@@ -71,24 +71,24 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:collection',
         link: '/rooms'
     }, {
-        id: 'dispositions',
-        title: 'Dispositions',
+        id: 'forms',
+        title: 'Forms',
         type: 'group',
         icon: 'heroicons_outline:document',
         children: [
             {
-                id: 'dispositions.types',
+                id: 'forms.types',
                 title: 'Types',
                 type: 'basic',
                 icon: 'heroicons_outline:document-duplicate',
-                link: '/dispositions/types'
+                link: '/forms/types'
             },
             {
-                id: 'dispositions.limitations',
-                title: 'Limitations',
+                id: 'forms.provider',
+                title: 'Provider Forms',
                 type: 'basic',
                 icon: 'heroicons_outline:document-text',
-                link: '/dispositions/limitations'
+                link: '/forms/provider'
             }
         ]
     },

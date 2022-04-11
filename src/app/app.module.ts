@@ -18,6 +18,7 @@ import { RoomsService } from './core/api/rooms.service';
 import { ProfileService } from './core/api/profile.service';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { RolesService } from './core/api/roles.service';
+import { FormsService } from './core/api/forms.service';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -47,13 +48,14 @@ const routerConfig: ExtraOptions = {
         // 3rd party modules that require global configuration via forRoot
         MarkdownModule.forRoot({}),
         MatMomentDateModule
-    ],
+        ],
     providers:[
         CompaniesService,
         CasesService,
         RoomsService,
         ProfileService,
         RolesService,
+        FormsService,
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
         
     ],

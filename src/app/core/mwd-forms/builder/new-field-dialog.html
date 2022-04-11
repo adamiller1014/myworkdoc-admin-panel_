@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>New Field</h1>
+<div mat-dialog-content>
+<div>
+  <h4>Please select a new field type.</h4>
+  <mat-form-field appearance="outline">
+    <mat-label>Type</mat-label>
+    <select [(ngModel)]="fieldType" matNativeControl required>
+      <option value="select">Select</option>
+      <option value="checkbox">Checkbox</option>
+      <option value="header">Header</option>
+      <option value="description">Description</option>
+      <option value="input">Text Input</option>
+      <option value="rich-input">Rich Text Input</option>
+      <option value="date-time">Date</option>
+      <option disabled value="file-uploader">File Upload</option>
+      <option value="signature">Signature</option>
+
+    </select>
+  </mat-form-field>
+</div>
+
+<div>
+  <button mat-raised-button color="primary" [mat-dialog-close]="fieldType" >Add</button>
+
+</div>
+
+</div>
