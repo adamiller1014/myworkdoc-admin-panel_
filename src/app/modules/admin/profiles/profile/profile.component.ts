@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
         this.accountForm = this._formBuilder.group({
             first_name: ['',Validators.required],
             last_name: ['',Validators.required],
-            title: [''],
             ein: ['',Validators.required],
             role_id: [{ value: null, disabled: true },Validators.required],
             company_id: [null,Validators.required],
@@ -119,7 +118,6 @@ export class ProfileComponent implements OnInit {
                 this.accountForm.get('email').setValue(data.results.email);
                 this.accountForm.get('cell_number').setValue(data.results.cell_number);
                 this.accountForm.get('ein').setValue(data.results.ein);
-                this.accountForm.get('title').setValue(data.results.title);
                 this.accountForm.get('hire_date').setValue(data.results.hire_date);
                 this.accountForm.get('birth_date').setValue(data.results.birth_date);
                 this.accountForm.get('terminated_date').setValue(data.results.terminated_date);
@@ -138,7 +136,6 @@ export class ProfileComponent implements OnInit {
             last_name: this.accountForm.get('last_name').value,
             email: this.accountForm.get('email').value,
             hire_date: new Date(this.accountForm.get('hire_date').value),
-            title: this.accountForm.get('title').value,
             cell_number: this.accountForm.get('cell_number').value,
             birth_date: new Date(this.accountForm.get('birth_date').value),
             home_address: this.accountForm.get('home_address').value,
