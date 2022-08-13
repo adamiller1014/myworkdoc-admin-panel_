@@ -17,7 +17,8 @@ COPY nginx/site-http.conf ./
 ## Remove default nginx website
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
-COPY --from=build /app/dist/mwd ./
+RUN mkdir -p /usr/share/nginx/html/admin
+COPY --from=build /app/dist/admin/* ./admin/
 
 EXPOSE 80
 
