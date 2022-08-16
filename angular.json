@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fuse": {
+    "mwd": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -137,13 +137,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "fuse:build:production"
+              "browserTarget": "mwd:build:production"
             },
             "development": {
-              "browserTarget": "fuse:build:development"
+              "browserTarget": "mwd:build:development"
             },
             "preview": {
-              "browserTarget": "fuse:build:preview"
+              "browserTarget": "mwd:build:preview"
             }
           },
           "defaultConfiguration": "development"
@@ -151,7 +151,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fuse:build"
+            "browserTarget": "mwd:build"
           }
         },
         "test": {
@@ -163,6 +163,8 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/favicon-16x16.png",
+              "src/favicon-32x32.png",
               "src/assets"
             ],
             "styles": [
@@ -183,7 +185,7 @@
       }
     }
   },
-  "defaultProject": "fuse",
+  "defaultProject": "mwd",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
