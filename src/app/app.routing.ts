@@ -71,5 +71,9 @@ export const appRoutes: Route[] = [
         {path: 'profiles', loadChildren: () => import('app/modules/admin/profiles/profiles.module').then(m => m.ProfilesModule)},
         {path: 'dashboard', loadChildren: () => import('app/modules/admin/dashboard/dashboard.module').then(m => m.DashboardModule)},
         ]
-    }
+    },
+
+    // Not found route
+    {path: 'not-found', loadChildren: () => import('app/modules/error/error-404/error-404.module').then(m => m.Error404Module)},
+    {path: '**', pathMatch : 'full', redirectTo: 'not-found'},
 ];
