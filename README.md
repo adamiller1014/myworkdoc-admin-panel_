@@ -25,3 +25,25 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice.  To 
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+# Docker
+
+## Build Image
+
+|Arguments|Description|
+|---|---|
+|`CONFIG`|Options should be taken from the project configuration.<br>Default: `development`|
+
+### Intel Chip
+
+```bash
+# Build dockerfile
+docker build --no-cache=true --build-arg CONFIG=development -t admin-panel:latest .
+```
+
+### Mac Chip
+
+```bash
+# Build dockerfile
+docker buildx build --platform=linux/amd64 --no-cache=true --build-arg CONFIG=development -t admin-panel:latest .
+```
