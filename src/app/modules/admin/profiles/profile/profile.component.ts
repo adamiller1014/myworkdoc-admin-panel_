@@ -120,7 +120,7 @@ export class ProfileComponent implements OnInit {
                 this.accountForm.get('ein').setValue(data.results.ein);
                 this.accountForm.get('hire_date').setValue(data.results.hire_date);
                 this.accountForm.get('birth_date').setValue(data.results.birth_date);
-                this.accountForm.get('terminated_date').setValue(data.results.terminated_date);
+                this.accountForm.get('terminated_date').setValue(data.results.term_date);
                 this.accountForm.get('home_address').setValue(data.results.home_address);
                 this.accountForm.get('active').setValue(data.results.active);
 
@@ -142,7 +142,7 @@ export class ProfileComponent implements OnInit {
             company_id: this.accountForm.get('company_id').value,
             profile_type_id: this.accountForm.get('profile_type_id').value,
             role_id: this.accountForm.get('role_id').value,
-            terminated_date: new Date(this.accountForm.get('terminated_date').value),
+            term_date: !this.accountForm.get('active').value ? new Date(this.accountForm.get('terminated_date').value) : null,
             active: this.accountForm.get('active').value
         }
         if (!this.profile_id) {
