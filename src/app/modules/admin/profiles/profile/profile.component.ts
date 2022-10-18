@@ -142,7 +142,7 @@ export class ProfileComponent implements OnInit {
             company_id: this.accountForm.get('company_id').value,
             profile_type_id: this.accountForm.get('profile_type_id').value,
             role_id: this.accountForm.get('role_id').value,
-            term_date: new Date(this.accountForm.get('terminated_date').value),
+            term_date: !this.accountForm.get('active').value ? new Date(this.accountForm.get('terminated_date').value) : null,
             active: this.accountForm.get('active').value
         }
         if (!this.profile_id) {
