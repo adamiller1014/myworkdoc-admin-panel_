@@ -3,7 +3,7 @@
   <form [formGroup]="providerForm">
     <mat-form-field appearance="fill" class="w-full">
       <mat-label>Case Form Type</mat-label>
-      <mat-select name="case_form_type_id" [formControlName]="'case_form_type_id'">
+      <mat-select required name="case_form_type_id" [formControlName]="'case_form_type_id'">
         <mat-option *ngFor="let type of form_types" [value]="type.id">
           {{type.name}}
         </mat-option>
