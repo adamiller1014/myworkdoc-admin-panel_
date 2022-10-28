@@ -4,7 +4,7 @@
 
     <mat-form-field style="width: 100%;" appearance="outline">
       <mat-label>Form Title</mat-label>
-      <input [(ngModel)]="form_data.title" matInput placeholder="Report">
+      <input required [(ngModel)]="form_data.title" matInput placeholder="Report">
     </mat-form-field>
 
     <mat-checkbox *ngIf="showDefaultCheckbox" color="primary" [(ngModel)]="form_data.default">Default</mat-checkbox>
