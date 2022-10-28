@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { FormsService } from 'app/core/api/forms.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'provider-form',
@@ -12,7 +13,6 @@ import { FormsService } from 'app/core/api/forms.service';
 export class ProviderFormComponent implements OnInit {
     form_id = null;
     form_types = []
-    case_form_type_id = null;
     form_data = {
         "title": "",
         "assignedCompanyID": 0,
@@ -26,12 +26,14 @@ export class ProviderFormComponent implements OnInit {
             active: true
         })
     };
+    providerForm: FormGroup;
     /**
      * Constructor
      */
     constructor(private _formsServices: FormsService,
         private _route: ActivatedRoute,
-        private _router: Router
+        private _router: Router,
+        private _formBuilder: FormBuilder
     ) {
     }
 
@@ -44,6 +46,9 @@ export class ProviderFormComponent implements OnInit {
         */
 
     ngOnInit(): void {
+        this.providerForm = this._formBuilder.group({
+            case_form_type_id     : [null, [Validators.required]],
+        });
 
         this._route.params.subscribe(params => {
             if (params['id']) {
@@ -63,8 +68,7 @@ export class ProviderFormComponent implements OnInit {
         let formInfo = {
             form_info: form_data,
             active: form_data.active,
-            case_form_type_id: this.case_form_type_id
-
+            case_form_type_id: this.providerForm.get('case_form_type_id').value
         }
         if (!this.form_id) {
             this._formsServices.newForm(formInfo).subscribe((data) => {
@@ -106,7 +110,7 @@ export class ProviderFormComponent implements OnInit {
                 console.log(data)
                 if (data.results.form_info)
                     this.form_data = data.results.form_info
-                    this.case_form_type_id = data.results.case_form_type_id
+                    this.providerForm.get('case_form_type_id').setValue(data.results.case_form_type_id);
 
 
             }

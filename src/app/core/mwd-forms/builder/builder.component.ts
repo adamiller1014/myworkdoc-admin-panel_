@@ -34,6 +34,7 @@ export class MWDFormBuilderComponent {
     "default": false,
     "pages": new Array()
   };
+  @Input() public disableSaveButton: boolean = false;
 
   constructor(public dialog: MatDialog, private router: Router) {
     this.onSaveEvent = new EventEmitter();
