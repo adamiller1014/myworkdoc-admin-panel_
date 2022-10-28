@@ -91,6 +91,6 @@
 </mat-card>
 <div style="margin-top: 10px; width: 100%;">
   <button *ngIf="showPreviewButton" fxFlex mat-raised-button color="warn" (click)="preview()">Preview</button>
-  <button fxFlex mat-raised-button color="primary" [disabled]="disableSaveButton" (click)="save()">Save</button>
+  <button fxFlex mat-raised-button color="primary" [disabled]="disableSaveButton || !form_data.title || form_data.pages[0].fields.length === 0" (click)="save()">Save</button>
 </div>
 
