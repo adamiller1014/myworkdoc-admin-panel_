@@ -1,14 +1,18 @@
 <div class="flex flex-col flex-auto min-w-0">
+  <!-- Main -->
+  <form [formGroup]="providerForm">
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Case Form Type</mat-label>
+      <mat-select name="case_form_type_id" [formControlName]="'case_form_type_id'">
+        <mat-option *ngFor="let type of form_types" [value]="type.id">
+          {{type.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="providerForm.get('case_form_type_id').hasError('required')">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+  </form>
 
-    <!-- Main -->
-    <mat-form-field appearance="fill">
-        <mat-label>Case Form Type</mat-label>
-        <mat-select [(ngModel)]="case_form_type_id" name="case_form_type_id">
-          <mat-option *ngFor="let type of form_types" [value]="type.id">
-            {{type.name}}
-          </mat-option>
-        </mat-select>
-        </mat-form-field>
-    <mwd-form-builder [form_data]="form_data" (onSaveEvent)="onSubmit($event)"></mwd-form-builder>
-
+  <mwd-form-builder [form_data]="form_data" [disableSaveButton]="providerForm.invalid" (onSaveEvent)="onSubmit($event)"></mwd-form-builder>
 </div>
