@@ -1,0 +1,65 @@
+image: node:16
+
+definitions:
+  caches:
+    sonar: ~/.sonar/cache # Caching SonarCloud artifacts will speed up your build
+  steps:
+    - step: &build-test
+        name: Build and unit test
+        caches:
+          - node
+        script:
+          - npm install --quiet
+          - npm run test -- --coverage --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox --passWithNoTests
+    - step: &build-test-custom-sonar
+        name: Build, test and analyze on SonarCloud (Custom run)
+        caches:
+          - node
+        script:
+          - npm install --quiet
+          - npm run sonar
+    - step: &build-test-sonarcloud
+        size: 2x
+        name: Build, test and analyze on SonarCloud
+        caches:
+          - node
+          - sonar
+        script:
+          - npm install --quiet
+          - npm run test -- --coverage --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox --passWithNoTests
+          - pipe: sonarsource/sonarcloud-scan:1.4.0
+            variables:
+              SONAR_TOKEN: ${SONAR_TOKEN}
+              EXTRA_ARGS: '-Dsonar.branch.name="$BITBUCKET_BRANCH"'
+
+pipelines:
+  pull-requests:
+    "**":
+      - step: *build-test-custom-sonar
+  branches:
+    "{hotfix/*}":
+      - step: *build-test
+    "{bugfix/*}":
+      - step: *build-test
+    "{feature/*}":
+      - step: *build-test
+    "{develop,qa}":
+      - step: *build-test-custom-sonar
+    "{release/*}":
+      - step: *build-test-custom-sonar
+    "{staging}":
+      - step: *build-test-custom-sonar
+      - step:
+          name: Executing e2e in Preview
+          script:
+            - pipe: atlassian/trigger-pipeline:5.0.1
+              variables:
+                BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+                BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+                REPOSITORY: "myworkdoc-e2e-automation"
+                REF_TYPE: "branch"
+                REF_NAME: "master"
+                CUSTOM_PIPELINE_NAME: "admin-panel-e2e"
+                WAIT: "true"
+    "{master}":
+      - step: *build-test-custom-sonar
