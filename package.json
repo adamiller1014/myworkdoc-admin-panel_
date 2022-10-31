@@ -9,7 +9,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "coverage": "ng test --code-coverage",
+    "lint": "ng lint",
+    "sonar": "sonar-scanner"
   },
   "dependencies": {
     "@angular/animations": "12.2.1",
@@ -92,6 +94,7 @@
     "karma-jasmine-html-reporter": "1.7.0",
     "lodash": "4.17.21",
     "postcss": "8.3.6",
+    "sonarqube-scanner": "^2.8.2",
     "tailwindcss": "2.2.7",
     "typescript": "4.3.5"
   }
