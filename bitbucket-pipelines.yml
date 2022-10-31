@@ -1,5 +1,5 @@
 image:
-  name: 760680488142.dkr.ecr.us-east-1.amazonaws.com/dev/node:latest-puppeteer
+  name: 760680488142.dkr.ecr.us-east-1.amazonaws.com/dev/automation-cypress:latest
   aws:
     access-key: $AWS_ACCESS_KEY
     secret-key: $AWS_SECRET_KEY
