@@ -10,7 +10,7 @@ definitions:
           - node
         script:
           - npm install --quiet --legacy-peer-deps
-          - npm run test -- --coverage --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox --passWithNoTests
+          - npm run coverage -- --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
     - step: &build-test-custom-sonar
         name: Build, test and analyze on SonarCloud (Custom run)
         caches:
@@ -26,7 +26,7 @@ definitions:
           - sonar
         script:
           - npm install --quiet --legacy-peer-deps
-          - npm run test -- --coverage --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox --passWithNoTests
+          - npm run coverage -- --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
           - pipe: sonarsource/sonarcloud-scan:1.4.0
             variables:
               SONAR_TOKEN: ${SONAR_TOKEN}
