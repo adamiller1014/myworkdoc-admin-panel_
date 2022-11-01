@@ -53,17 +53,5 @@ pipelines:
       - step: *build-test-custom-sonar
     "{staging}":
       - step: *build-test-custom-sonar
-      - step:
-          name: Executing e2e in Preview
-          script:
-            - pipe: atlassian/trigger-pipeline:5.0.1
-              variables:
-                BITBUCKET_USERNAME: $BITBUCKET_USERNAME
-                BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-                REPOSITORY: "myworkdoc-e2e-automation"
-                REF_TYPE: "branch"
-                REF_NAME: "master"
-                CUSTOM_PIPELINE_NAME: "admin-panel-e2e"
-                WAIT: "true"
     "{master}":
       - step: *build-test-custom-sonar
