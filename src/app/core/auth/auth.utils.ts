@@ -62,7 +62,7 @@ export class AuthUtils
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
         let output = '';
 
-        str = String(str).replace(/=+$/, '');
+        str = String(str).replace(/=++$/, '');
 
         if ( str.length % 4 === 1 )
         {

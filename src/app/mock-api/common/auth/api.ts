@@ -176,7 +176,7 @@ export class AuthMockApi
         let encodedSource = Base64.stringify(source);
 
         // Remove padding equal characters
-        encodedSource = encodedSource.replace(/=+$/, '');
+        encodedSource = encodedSource.replace(/=++$/, '');
 
         // Replace characters according to base64url specifications
         encodedSource = encodedSource.replace(/\+/g, '-');
