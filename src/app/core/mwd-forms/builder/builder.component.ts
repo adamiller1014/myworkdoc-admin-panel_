@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 export interface DialogData {
   field: {
@@ -330,7 +331,19 @@ export class MWDFormBuilderComponent {
 
 
   deleteField(itemIndex: Number,) {
-    this.form_data.pages[this.activePage].fields.splice(Number(itemIndex), 1)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.form_data.pages[this.activePage].fields.splice(Number(itemIndex), 1)
+      }
+    })
   }
 
   save() {
