@@ -38,12 +38,34 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ```bash
 # Build dockerfile
-docker build --no-cache=true --build-arg CONFIG=development -t admin-panel:latest .
+docker build --no-cache=true --build-arg CONFIG=development -t mwd-admin:select_x.x.x_final .
 ```
 
 ### Mac Chip
 
 ```bash
 # Build dockerfile
-docker buildx build --platform=linux/amd64 --no-cache=true --build-arg CONFIG=development -t admin-panel:latest .
+docker buildx build --platform=linux/amd64 --no-cache=true --build-arg CONFIG=development -t mwd-admin:select_x.x.x .
+```
+
+## Push Image to AWS
+
+```bash
+# Retrieve an authentication token and authenticate your Docker client to your registry.
+# Use the AWS CLI
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 869365073754.dkr.ecr.us-east-1.amazonaws.com
+
+# build your image using the options above
+
+# After the build completes, tag your image so you can push the image to this repository
+docker tag mwd-admin:select_x.x.x 869365073754.dkr.ecr.us-east-1.amazonaws.com/mwd-admin:select_x.x.x
+
+# Run the following command to push this image to your newly created AWS repository
+docker push 869365073754.dkr.ecr.us-east-1.amazonaws.com/mwd-admin:select_x.x.x
+```
+
+## View Images in ECR
+
+```bash
+aws ecr list-images --repository-name mwd-admin
 ```
