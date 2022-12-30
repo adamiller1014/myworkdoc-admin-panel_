@@ -1,7 +1,7 @@
 <div class="flex flex-col flex-auto min-w-0">
 
     <!-- Main -->
-    <div class="flex-auto p-6 sm:p-10">
+    <div class="flex-auto p-2 sm:p-10">
 
         <!-- CONTENT GOES HERE -->
 
@@ -12,14 +12,10 @@
             <dxo-filter-row [visible]="true"></dxo-filter-row>
             <dxo-header-filter [visible]="true"></dxo-header-filter>
             <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
-            <dxi-column dataField="id" caption="ID" [width]="80"></dxi-column>
-
-            <dxi-column dataField="joined_on" alignment="right" dataType="date" format="M/d/yyyy"
-                [width]="180"></dxi-column>
-
-            <dxi-column dataField="name"></dxi-column>
+            <dxi-column dataField="id" caption="ID" [minWidth]="65"></dxi-column>
+            <dxi-column dataField="joined_on" alignment="right" dataType="date" format="M/d/yyyy" [minWidth]="100"></dxi-column>
+            <dxi-column dataField="name" [minWidth]="120"></dxi-column>
             <dxi-column dataField="active"></dxi-column>
-
         </dx-data-grid>
 
 
