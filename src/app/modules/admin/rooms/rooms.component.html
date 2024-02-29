@@ -1,7 +1,7 @@
 <div class="flex flex-col flex-auto min-w-0">
 
     <!-- Main -->
-    <div class="flex-auto p-6 sm:p-10">
+    <div class="flex-auto p-2 sm:p-10">
 
         <!-- CONTENT GOES HERE -->
         <dx-data-grid id="gridContainer" [dataSource]="rooms" keyExpr="id" [showColumnLines]="true"
@@ -9,16 +9,12 @@
             <dxo-filter-row [visible]="true"></dxo-filter-row>
             <dxo-header-filter [visible]="true"></dxo-header-filter>
             <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
-            <dxi-column dataField="id" caption="ID" [width]="80"></dxi-column>
-
-            <dxi-column dataField="created_on" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm"
-                [width]="180"></dxi-column>
-
+            <dxi-column dataField="id" caption="ID"></dxi-column>
+            <dxi-column dataField="created_on" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm"></dxi-column>
             <dxi-column dataField="case_number"></dxi-column>
             <dxi-column dataField="company_name"></dxi-column>
             <dxi-column dataField="first_name"></dxi-column>
             <dxi-column dataField="last_name"></dxi-column>
-
         </dx-data-grid>
 
       

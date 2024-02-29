@@ -1,0 +1,47 @@
+{
+    "family": "myworkdoc-admin-panel-qa-app",
+    "containerDefinitions": [
+        {
+            "name": "myworkdoc-admin-panel",
+            "image": "${IMAGE_NAME}",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "mwd-admin-panel-80-tcp",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/qa/myworkdoc-admin-panel-qa-app",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::328405198985:role/ECS-Task-Role",
+    "executionRoleArn": "arn:aws:iam::328405198985:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}

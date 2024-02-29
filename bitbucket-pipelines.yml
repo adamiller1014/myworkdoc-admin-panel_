@@ -288,12 +288,11 @@ pipelines:
       - step: *build-test-custom-sonar
       - step: *check-release-version
       - step:
-          name: "Deployment to Master"
-          deployment: production
+          name: "Deployment to Staging"
+          deployment: staging
           trigger: manual
           script:
             - echo "Start parallel tasks"
       - step: *build-prod-myworkdoc-admin-panel
       - step: *deploy-prod-myworkdoc-admin-panel   
-
 
