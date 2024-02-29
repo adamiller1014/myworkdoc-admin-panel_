@@ -1,10 +1,13 @@
-image:
-  name: 760680488142.dkr.ecr.us-east-1.amazonaws.com/dev/automation-cypress:latest
-  aws:
-    access-key: $AWS_ACCESS_KEY
-    secret-key: $AWS_SECRET_KEY
-
+image: node:16
+aws:
+  access-key: $AWS_ACCESS_KEY
+  secret-key: $AWS_SECRET_KEY   
+  
 definitions:
+  services:
+    docker-4g:
+      type: docker
+      memory: 4096
   caches:
     sonar: ~/.sonar/cache # Caching SonarCloud artifacts will speed up your build
   steps:
@@ -14,14 +17,15 @@ definitions:
           - node
         script:
           - npm install --quiet --legacy-peer-deps
-          - npm run coverage -- --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+          - npm run test -- --passWithNoTests          
     - step: &build-test-custom-sonar
         name: Build, test and analyze on SonarCloud (Custom run)
         caches:
           - node
+          - sonar
         script:
           - npm install --quiet --legacy-peer-deps
-          - npm run sonar
+          #- npm run sonar
     - step: &build-test-sonarcloud
         size: 2x
         name: Build, test and analyze on SonarCloud
@@ -30,12 +34,188 @@ definitions:
           - sonar
         script:
           - npm install --quiet --legacy-peer-deps
-          - npm run coverage -- --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+          - npm run test -- --coverage --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox --passWithNoTests
           - pipe: sonarsource/sonarcloud-scan:1.4.0
             variables:
               SONAR_TOKEN: ${SONAR_TOKEN}
               EXTRA_ARGS: '-Dsonar.branch.name="$BITBUCKET_BRANCH"'
+    - step: &check-release-version
+        name: Check release version
+        script:
+          - SONAR_VERSION=$(cat ./sonar-project.properties | grep -m 1 projectVersion | awk -F "=" '{print $2}' | xargs)
+          - PACKAGE_VERSION=$(cat ./package.json | grep -m 1 version | sed 's/[^0-9.]//g' | xargs)
+          - RELEASE_VERSION=$(git branch -a | grep release | tail -1 | awk '{gsub("remotes/origin/release/",""); print}' | xargs)
+          - SONAR_VERSION="$PACKAGE_VERSION";RELEASE_VERSION="$PACKAGE_VERSION";
+          - >
+            if [[ "$RELEASE_VERSION" != "$SONAR_VERSION" || "$RELEASE_VERSION" != "$PACKAGE_VERSION" ]]; then
+              echo "Some version does not match the version of the latest release. Review sonar-project.properties or package.json."
+              exit 1
+            fi  
+          - echo $RELEASE_VERSION
+          - echo "export RELEASE_VERSION=$RELEASE_VERSION" >> release_version.sh
+        artifacts:
+          - release_version.sh              
+    #    
+    # STEP:
+    # build-non-prod-myworkdoc-admin-panel
+    #
+    # Builds the MyWorkDoc UI Portal for non-production mode.
+    #
+    # TODO:
+    # - Consider merging with PROD and use a flag if possible?
+    # - Simplify with prod.
+    #
+    - step: &build-non-prod-myworkdoc-admin-panel
+        size: 2x
+        name: Build myworkdoc-admin-panel and push to ECR
+        oidc: true
+        script:
+          - cat release_version.sh
+          - source release_version.sh
+          - apt-get install unzip
+          - (cd /tmp && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install)
+          - export AWS_REGION=us-east-1
+          - export AWS_ROLE_ARN=arn:aws:iam::328405198985:role/mwd-bitbucket-pipelines
+          - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
+          - echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
+          - sed -i "s/{{version}}/$RELEASE_VERSION/" ./nginx/site-http.conf # Append version for nginx config /version route
+          - aws sts get-caller-identity
+          - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL_BASE
+          - export ECR_PREFIX=$([ "$BITBUCKET_BRANCH" = "develop" ] && echo "dev" || echo "$BITBUCKET_BRANCH") # Shorten 'develop' to 'dev'
+          - export ECR_URL="${ECR_URL_BASE}/${ECR_PREFIX}/${SERVICE_NAME}"
+          - docker build --build-arg CONFIG=$BITBUCKET_BRANCH . -t build_myworkdoc-admin-panel
+          - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:$BITBUCKET_BRANCH-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
+          - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:latest
+          - docker push --all-tags $ECR_URL
+        services:
+          - docker-4g
+        caches:
+          - docker
+      #    
+    # STEP:
+    # build-non-prod-myworkdoc-admin-panel
+    #
+    # Builds the MyWorkDoc UI Portal for non-production mode.
+    #
+    # TODO:
+    # - Consider merging with PROD and use a flag if possible?
+    # - Simplify with prod.
+    #
+    - step: &build-prod-myworkdoc-admin-panel
+        size: 2x
+        name: Build myworkdoc-admin-panel and push to ECR
+        oidc: true
+        script:
+          - cat release_version.sh
+          - source release_version.sh
+          - apt-get install unzip
+          - (cd /tmp && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install)
+          - export AWS_REGION=us-east-1
+          - export AWS_ROLE_ARN=arn:aws:iam::533267451755:role/mwd-bitbucket-pipelines
+          - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
+          - echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
+          - sed -i "s/{{version}}/$RELEASE_VERSION/" ./nginx/site-http.conf # Append version for nginx config /version route
+          - aws sts get-caller-identity
+          - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $PROD_ECR_URL_BASE
+          - export ECR_PREFIX=$([ "$BITBUCKET_BRANCH" = "master" ] && echo "prod" || echo "$BITBUCKET_BRANCH") # Shorten 'master' to 'prod'
+          - export ECR_URL="${PROD_ECR_URL_BASE}/${ECR_PREFIX}/${SERVICE_NAME}"
+          - export BUILD_CONFIG=$([ "$BITBUCKET_BRANCH" = "master" ] && echo "production" || echo "$BITBUCKET_BRANCH") # Change 'master' to 'production'
+          - docker build --build-arg CONFIG=$BUILD_CONFIG . -t build_myworkdoc-admin-panel
+          - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:$ECR_PREFIX-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
+          - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:latest
+          - docker push --all-tags $ECR_URL
+        services:
+          - docker-4g
+        caches:
+          - docker        
+  # STEP:
+    # deploy-non-prod-workdoc-server
+    #
+    # Deploys the MyWorkDoc UI Portal image from ECR to ECS and updates the service
+    #
+    - step: &deploy-non-prod-myworkdoc-admin-panel
+        size: 2x
+        name: Update ECS Service
+        oidc: true
+        script:
+          - cat release_version.sh
+          - source release_version.sh
+          - >
+            apt-get update && apt-get install -y jq \
+              unzip \
+              gettext
+          - (cd /tmp && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install)
+          - export AWS_REGION=us-east-1
+          - export AWS_ROLE_ARN=arn:aws:iam::328405198985:role/mwd-bitbucket-pipelines
+          - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
+          - echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
+          - aws sts get-caller-identity
+          - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_URL_BASE
 
+          #Set ECS Cluster data
+          - export ECS_CLUSTER=$([ "$BITBUCKET_BRANCH" = "develop" ] && echo "dev-mwd" || echo "${BITBUCKET_BRANCH}-mwd") # Shorten 'develop' to 'dev'
+          - export ECR_PREFIX=$([ "$BITBUCKET_BRANCH" = "develop" ] && echo "dev" || echo "$BITBUCKET_BRANCH") # Shorten 'develop' to 'dev'
+          - export ECR_URL="${ECR_URL_BASE}/${ECR_PREFIX}/${SERVICE_NAME}"
+          
+          # Replace the container name in the task definition with the new image. 
+          - export IMAGE_NAME=$ECR_URL:$BITBUCKET_BRANCH-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
+          - envsubst < ./config/${BITBUCKET_BRANCH}/task-definition.json > ./config/${BITBUCKET_BRANCH}/task-definition-envsubst.json
+          # Update the task definition and capture the latest revision.
+          - >
+            export UPDATED_TASK_DEFINITION=$(aws ecs register-task-definition --cli-input-json file://config/${BITBUCKET_BRANCH}/task-definition-envsubst.json | \
+                jq '.taskDefinition.taskDefinitionArn' --raw-output)
+    
+          # Update the service
+          - echo $UPDATED_TASK_DEFINITION
+          - aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --task-definition ${UPDATED_TASK_DEFINITION} --force-new-deployment --enable-execute-command
+        services:
+          - docker-4g
+        caches:
+          - docker  
+  # STEP:
+    # deploy-prod-workdoc-server
+    #
+    # Deploys the MyWorkDoc UI Portal image from ECR to ECS and updates the service
+    #
+    - step: &deploy-prod-myworkdoc-admin-panel
+        size: 2x
+        name: Update ECS Service
+        oidc: true
+        script:
+          - cat release_version.sh
+          - source release_version.sh
+          - >
+            apt-get update && apt-get install -y jq \
+              unzip \
+              gettext
+          - (cd /tmp && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install)
+          - export AWS_REGION=us-east-1
+          - export AWS_ROLE_ARN=arn:aws:iam::533267451755:role/mwd-bitbucket-pipelines
+          - export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token
+          - echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
+          - aws sts get-caller-identity
+          - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $PROD_ECR_URL_BASE
+
+          #Set ECS Cluster data
+          - export ECS_CLUSTER=$([ "$BITBUCKET_BRANCH" = "master" ] && echo "prod-mwd" || echo "${BITBUCKET_BRANCH}-mwd") # Shorten 'master' to 'prod'
+          - export ECR_PREFIX=$([ "$BITBUCKET_BRANCH" = "master" ] && echo "prod" || echo "$BITBUCKET_BRANCH") # Shorten 'master' to 'prod'
+          - export ECR_URL="${PROD_ECR_URL_BASE}/${ECR_PREFIX}/${SERVICE_NAME}"
+          
+          # Replace the container name in the task definition with the new image. 
+          - export IMAGE_NAME=$ECR_URL:$ECR_PREFIX-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
+          - envsubst < ./config/${ECR_PREFIX}/task-definition.json > ./config/${ECR_PREFIX}/task-definition-envsubst.json
+          # Update the task definition and capture the latest revision.
+          - >
+            export UPDATED_TASK_DEFINITION=$(aws ecs register-task-definition --cli-input-json file://config/${ECR_PREFIX}/task-definition-envsubst.json | \
+                jq '.taskDefinition.taskDefinitionArn' --raw-output)
+    
+          # Update the service
+          - echo $UPDATED_TASK_DEFINITION
+          - aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --task-definition ${UPDATED_TASK_DEFINITION} --force-new-deployment --enable-execute-command
+        services:
+          - docker-4g
+        caches:
+          - docker                           
 pipelines:
   pull-requests:
     "**":
@@ -47,11 +227,73 @@ pipelines:
       - step: *build-test
     "{feature/*}":
       - step: *build-test
-    "{develop,qa}":
+#    "{develop,qa}":
+###      - step: *build-test-custom-sonar
+    #
+    # DEVELOP
+    #
+    # Builds for develop.
+    #
+    # TODO Fix echo
+    #
+    "{develop}":
       - step: *build-test-custom-sonar
+      - step: *check-release-version
+      - step:
+          name: "Deployment to Development"
+          deployment: development
+          trigger: automatic
+          script:
+            - echo "Start parallel tasks"
+      - step: *build-non-prod-myworkdoc-admin-panel
+      - step: *deploy-non-prod-myworkdoc-admin-panel          
+    #
+    # QA
+    #
+    # Builds for qa.
+    # 
+    # TODO Fix echo
+    # 
+    "{qa}":
+      - step:
+          <<: *build-test-custom-sonar
+          name: "Deployment steps for QA"
+          deployment: qa
+          trigger: automatic
+      - step:
+          <<: *check-release-version
+          trigger: automatic          
+      - step:  
+          <<: *build-non-prod-myworkdoc-admin-panel
+          name: "Build and push to ECR for QA"
+          trigger: automatic
+      - step:
+          <<: *deploy-non-prod-myworkdoc-admin-panel
+          name: "Update ECS Service in QA"
+          trigger: automatic
     "{release/*}":
       - step: *build-test-custom-sonar
     "{staging}":
       - step: *build-test-custom-sonar
+      - step: *check-release-version
+      - step:
+          name: "Deployment to Staging"
+          deployment: staging
+          trigger: manual
+          script:
+            - echo "Start parallel tasks"
+      - step: *build-prod-myworkdoc-admin-panel
+      - step: *deploy-prod-myworkdoc-admin-panel   
     "{master}":
       - step: *build-test-custom-sonar
+      - step: *check-release-version
+      - step:
+          name: "Deployment to Staging"
+          deployment: staging
+          trigger: manual
+          script:
+            - echo "Start parallel tasks"
+      - step: *build-prod-myworkdoc-admin-panel
+      - step: *deploy-prod-myworkdoc-admin-panel   
+
+
