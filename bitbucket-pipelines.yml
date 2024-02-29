@@ -119,8 +119,9 @@ definitions:
           - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $PROD_ECR_URL_BASE
           - export ECR_PREFIX=$([ "$BITBUCKET_BRANCH" = "master" ] && echo "prod" || echo "$BITBUCKET_BRANCH") # Shorten 'master' to 'prod'
           - export ECR_URL="${PROD_ECR_URL_BASE}/${ECR_PREFIX}/${SERVICE_NAME}"
-          - docker build --build-arg CONFIG=$BITBUCKET_BRANCH . -t build_myworkdoc-admin-panel
-          - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:$BITBUCKET_BRANCH-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
+          - export BUILD_CONFIG=$([ "$BITBUCKET_BRANCH" = "master" ] && echo "production" || echo "$BITBUCKET_BRANCH") # Change 'master' to 'production'
+          - docker build --build-arg CONFIG=$BUILD_CONFIG . -t build_myworkdoc-admin-panel
+          - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:$ECR_PREFIX-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
           - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:latest
           - docker push --all-tags $ECR_URL
         services:
@@ -201,11 +202,11 @@ definitions:
           - export ECR_URL="${PROD_ECR_URL_BASE}/${ECR_PREFIX}/${SERVICE_NAME}"
           
           # Replace the container name in the task definition with the new image. 
-          - export IMAGE_NAME=$ECR_URL:$BITBUCKET_BRANCH-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
-          - envsubst < ./config/${BITBUCKET_BRANCH}/task-definition.json > ./config/${BITBUCKET_BRANCH}/task-definition-envsubst.json
+          - export IMAGE_NAME=$ECR_URL:$ECR_PREFIX-$RELEASE_VERSION-$BITBUCKET_BUILD_NUMBER
+          - envsubst < ./config/${ECR_PREFIX}/task-definition.json > ./config/${ECR_PREFIX}/task-definition-envsubst.json
           # Update the task definition and capture the latest revision.
           - >
-            export UPDATED_TASK_DEFINITION=$(aws ecs register-task-definition --cli-input-json file://config/${BITBUCKET_BRANCH}/task-definition-envsubst.json | \
+            export UPDATED_TASK_DEFINITION=$(aws ecs register-task-definition --cli-input-json file://config/${ECR_PREFIX}/task-definition-envsubst.json | \
                 jq '.taskDefinition.taskDefinitionArn' --raw-output)
     
           # Update the service
@@ -284,5 +285,14 @@ pipelines:
       - step: *build-prod-myworkdoc-admin-panel
       - step: *deploy-prod-myworkdoc-admin-panel   
     "{master}":
-      - step: *build-test
+      - step: *build-test-custom-sonar
+      - step: *check-release-version
+      - step:
+          name: "Deployment to Staging"
+          deployment: staging
+          trigger: manual
+          script:
+            - echo "Start parallel tasks"
+      - step: *build-prod-myworkdoc-admin-panel
+      - step: *deploy-prod-myworkdoc-admin-panel   
 
