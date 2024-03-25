@@ -7145,6 +7145,14 @@
   dependencies:
     "tslib" "^2.2.0"
 
+"nice-napi@^1.0.2":
+  "integrity" "sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA=="
+  "resolved" "https://registry.npmjs.org/nice-napi/-/nice-napi-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "node-addon-api" "^3.0.0"
+    "node-gyp-build" "^4.2.2"
+
 "nice-try@^1.0.4":
   "integrity" "sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ=="
   "resolved" "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz"
@@ -7166,6 +7174,11 @@
   "integrity" "sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA=="
   "resolved" "https://registry.npmjs.org/node-forge/-/node-forge-0.10.0.tgz"
   "version" "0.10.0"
+
+"node-gyp-build@^4.2.2":
+  "integrity" "sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg=="
+  "resolved" "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.2.3.tgz"
+  "version" "4.2.3"
 
 "node-gyp@^7.1.0":
   "integrity" "sha512-CbpcIo7C3eMu3dL1c3d0xw449fHIGALIJsRP4DDPHpyiW8vcriNY7ubh9TE4zEKfSxscY7PjeFnshE7h75ynjQ=="
