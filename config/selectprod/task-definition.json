@@ -1,5 +1,5 @@
 {
-    "family": "myworkdoc-admin-panel-staging-app",
+    "family": "myworkdoc-admin-panel-selectprod-app",
     "containerDefinitions": [
         {
             "name": "myworkdoc-admin-panel",
@@ -25,15 +25,15 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/staging/myworkdoc-admin-panel-staging-app",
+                    "awslogs-group": "/ecs/selectprod/myworkdoc-admin-panel-selectprod-app",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 }
             }
         }
     ],
-    "taskRoleArn": "arn:aws:iam::533267451755:role/ECS-Task-Role",
-    "executionRoleArn": "arn:aws:iam::533267451755:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::869365073754:role/ECS-Task-Role",
+    "executionRoleArn": "arn:aws:iam::869365073754:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "requiresCompatibilities": [
         "FARGATE"
