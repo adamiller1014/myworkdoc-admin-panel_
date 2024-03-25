@@ -2,9 +2,7 @@
 FROM node:16.16.0-alpine3.16 AS build
 ARG CONFIG
 ENV STAGE=${CONFIG}
-## clean up any previous local build
-RUN rm -rf dist
-RUN rm -rf node_modules
+
 ## change working directory
 WORKDIR /app
 COPY package*.json ./
