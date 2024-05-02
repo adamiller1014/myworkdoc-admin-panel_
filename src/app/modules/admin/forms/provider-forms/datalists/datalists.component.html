@@ -1,0 +1,57 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+
+            <mat-card class="rounded-2xl">
+                <mat-card-title>Data Lists</mat-card-title>
+                <mat-card-content class="flex flex-col flex-auto">
+
+                    <div class="self-end m-4">
+                        <button color="primary" [routerLink]="'/forms'" class="h-6 min-h-6 px-2 rounded-full bg-hover" mat-button>
+                            <span class="font-medium text-sm text-secondary">Forms</span>
+                        </button> &nbsp;                        
+                        <button color="primary" [routerLink]="'/forms/datalists/new'" class="h-6 min-h-6 px-2 rounded-full bg-hover" mat-button>
+                            <span class="font-medium text-sm text-secondary">New Data List</span>
+                        </button> &nbsp;
+                        <button color="primary" [routerLink]="'/forms/listtypes'" class="h-6 min-h-6 px-2 rounded-full bg-hover" mat-button>
+                            <span class="font-medium text-sm text-secondary">List Types</span>
+                        </button>                         
+                        </div>
+
+                    <dx-data-grid id="gridContainer" [dataSource]="forms" keyExpr="id" [showColumnLines]="true"
+                        [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true">
+                        <dxo-filter-row [visible]="true">
+                        </dxo-filter-row>
+                        <!-- <dxo-search-panel 
+                        [visible]="true" 
+                        [width]="240" 
+                        placeholder="Search..."></dxo-search-panel> -->
+                        <dxo-header-filter [visible]="true"></dxo-header-filter>
+                        <dxo-paging [pageSize]="10">
+                        </dxo-paging>
+                        <dxi-column dataField="name" alignment="left">
+                        </dxi-column>
+
+                        <dxi-column type="buttons" cellTemplate="cellTemplate" caption="Options">
+                      
+                        </dxi-column>
+                        
+                        <div *dxTemplate="let data of 'cellTemplate'">
+                            <button (click)="editList(data)" mat-raised-button color="accent">Edit</button>&nbsp;
+                          </div>
+                    </dx-data-grid>
+
+                </mat-card-content>
+
+
+            </mat-card>
+
+        </div>
+
+    </div>
+
+</div>
