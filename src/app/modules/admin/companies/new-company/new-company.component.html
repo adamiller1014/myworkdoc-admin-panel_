@@ -45,10 +45,18 @@
                         <mat-checkbox [formControlName]="'active'">Active?</mat-checkbox>
                     </mat-form-field>
                 </div>
+                <div class="sm:col-span-1">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Case Management</mat-label>
 
+                        <input [hidden]="true" [formControlName]="'case_management_enabled'" matInput>
+                        <mat-checkbox [formControlName]="'case_management_enabled'">Enabled?</mat-checkbox>
+                    </mat-form-field>
+                </div>
 
             
             </div>
+  
 
 
 
