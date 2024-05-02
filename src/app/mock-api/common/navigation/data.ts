@@ -89,7 +89,21 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 type: 'basic',
                 icon: 'heroicons_outline:document-text',
                 link: '/forms/provider'
-            }
+            },
+            {
+                id: 'forms.datalists',
+                title: 'Data Lists',
+                type: 'basic',
+                icon: 'heroicons_outline:view-list',
+                link: '/forms/datalists'
+            },
+            {
+                id: 'forms.listtypes',
+                title: 'List Types',
+                type: 'basic',
+                icon: 'heroicons_outline:star',
+                link: '/forms/listtypes'
+            }                                    
         ]
     },
 ];

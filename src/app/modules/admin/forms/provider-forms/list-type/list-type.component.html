@@ -1,0 +1,55 @@
+<div class="datalistItemDialog">
+    <div class="datalistItemContent">
+    <div class="datalistItemDialogForm">
+        <div>
+
+            <h4>List Type</h4><br />
+            <div>
+                <form [formGroup]="listTypeForm" (ngSubmit)="onSubmit()">
+
+                    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+          
+                        <!-- Title -->
+                        <div class="sm:col-span-1">
+                            <mat-form-field class="fuse-mat-no-subscript w-full">
+                                <mat-label>Name</mat-label>
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:book-open'" matPrefix></mat-icon>
+                                <input required="true" [formControlName]="'name'" matInput>
+                            </mat-form-field>
+                        </div>
+          
+                        <div class="sm:col-span-1">
+                            <mat-form-field class="fuse-mat-no-subscript w-full">
+                                <mat-label>Active</mat-label>
+        
+                                <input [hidden]="true" [formControlName]="'active'" matInput>
+                                <mat-checkbox [formControlName]="'active'">Active?</mat-checkbox>
+                            </mat-form-field>
+                        </div>
+        
+
+    
+    
+        
+                    
+                    </div>                        
+
+                    <br />
+                <!-- Actions -->
+                <div class="flex items-center justify-start">
+                    <button (click)="closeDialog()" mat-stroked-button type="button">
+                        Cancel
+                    </button>
+                    <button [disabled]="this.listTypeForm.invalid" class="ml-4" mat-flat-button type="submit" color="primary">Save
+                    </button>
+                </div>
+                </form>
+
+        </div>          
+
+
+        
+    </div>
+    <div style="height: 20px;">&nbsp;</div>
+
+</div>
