@@ -40,6 +40,7 @@ export class NewCompanyComponent implements OnInit {
             settings: [''],
             joined_on: [new Date()],
             active: [true],
+            case_management_enabled: [false]
       
 
         });
@@ -58,6 +59,7 @@ export class NewCompanyComponent implements OnInit {
             joined_on: new Date(this.companyForm.value.joined_on).toLocaleDateString(),
             settings: this.companyForm.value.settings,
             active: this.companyForm.value.active,
+            case_management_enabled: this.companyForm.value.case_management_enabled
             
         }
         if(!this.company_id){
@@ -102,7 +104,7 @@ export class NewCompanyComponent implements OnInit {
                 this.companyForm.get('joined_on').setValue(data.results.joined_on);
                 this.companyForm.get('settings').setValue(data.results.settings);
                 this.companyForm.get('active').setValue(data.results.active);
-
+                this.companyForm.get('case_management_enabled').setValue(data.results.case_management_enabled);
             }
         })
     }
