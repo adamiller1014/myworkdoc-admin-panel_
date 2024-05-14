@@ -17,6 +17,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { SharedModule } from 'app/shared/shared.module';
 import { ProviderFormComponent } from './provider-forms/form/provider-form.component';
 import { MWDFormsModule } from 'app/core/mwd-forms/mwd-forms.module';
+import { ListTypeComponent } from './provider-forms/list-type/list-type.component';
+import { NewDatalistItemComponent } from './provider-forms/new-datalist-item/new-datalist-item.component';
 
 const exampleRoutes: Route[] = [
     {
@@ -36,7 +38,7 @@ const exampleRoutes: Route[] = [
 @NgModule({
     declarations: [
         ProviderFormsComponent,
-        ProviderFormComponent
+        ProviderFormComponent,NewDatalistItemComponent, ListTypeComponent
         
     ],
     imports: [

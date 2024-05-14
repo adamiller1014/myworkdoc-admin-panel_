@@ -1,0 +1,123 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+
+            <mat-card class="rounded-2xl">
+
+                <mat-card-title>Data Lists</mat-card-title>
+                <mat-card-content class="flex flex-col flex-auto">
+
+                        <form [formGroup]="datalistForm" (ngSubmit)="onSubmit()">
+
+                        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+              
+                            <!-- Title -->
+                            <div class="sm:col-span-1">
+                                <mat-form-field class="fuse-mat-no-subscript w-full">
+                                    <mat-label>Name</mat-label>
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:book-open'" matPrefix></mat-icon>
+                                    <input required="true" [formControlName]="'name'" matInput />
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Title -->
+                            <div class="sm:col-span-1">
+                                <mat-form-field class="fuse-mat-no-subscript w-full">
+                                    <mat-label>Code</mat-label>
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:code'" matPrefix></mat-icon>
+                                    <input required="true" [formControlName]="'code'" matInput />
+                                </mat-form-field>
+                            </div>                            
+
+                            <div class="sm:col-span-1">
+                                <mat-form-field class="fuse-mat-no-subscript w-full">
+                                  <mat-label>List Type</mat-label>
+                                  <mat-select required="true"
+                                  [formControlName]="'list_type_id'"
+                                  (selectionChange)="changeListType($event.value)">
+                                    <mat-option *ngFor="let listType of listTypes" [value]="listType.id">
+                                      {{ listType.name }}
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="datalistForm.get('list_type_id').hasError('required')">Please select a list type.</mat-error>                 
+                                </mat-form-field>
+                              </div>
+
+                            <div class="sm:col-span-1">
+                                <mat-form-field class="fuse-mat-no-subscript w-full">
+                                    <mat-label>Active</mat-label>
+            
+                                    <input [hidden]="true" [formControlName]="'active'" matInput>
+                                    <mat-checkbox [formControlName]="'active'">Active?</mat-checkbox>
+                                </mat-form-field>
+                            </div>
+            
+
+        
+        
+            
+                        
+                        </div>                        
+
+                        <br />
+                    <!-- Actions -->
+                    <div class="flex items-center justify-start">
+                        <button [routerLink]="['/forms/datalists' ]" mat-stroked-button type="button">
+                            Cancel
+                        </button>
+                        <button [disabled]="this.datalistForm.invalid" class="ml-4" mat-flat-button type="submit" [color]="'primary'">Save
+                        </button>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="mt-11 mb-10 border-t" *ngIf="datalist_id !== 'new'" ></div>
+
+                    
+                    </form>
+
+                    <div class="self-end" *ngIf="datalist_id !== 'new'" >
+                        <button color="primary" (click)="openDatalistItem('new')" class="ml-4"  mat-stroked-button>
+                            <span class="font-medium text-sm text-secondary">New Data List Item</span>
+                        </button> 
+                    </div>
+                    <br />
+    
+                            
+                    <dx-data-grid *ngIf="datalist_id !== 'new'" id="gridContainer" [dataSource]="items" keyExpr="id" [showColumnLines]="true"
+                        [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true">
+                        <dxo-filter-row [visible]="true">
+                        </dxo-filter-row>
+                        <!-- <dxo-search-panel 
+                        [visible]="true" 
+                        [width]="240" 
+                        placeholder="Search..."></dxo-search-panel> -->
+                        <dxo-header-filter [visible]="true"></dxo-header-filter>
+                        <dxo-paging [pageSize]="10">
+                        </dxo-paging>
+                        <dxi-column dataField="key" alignment="left">
+
+                        </dxi-column>
+                        <dxi-column dataField="value" alignment="left"></dxi-column>
+                        <dxi-column type="buttons" cellTemplate="cellTemplate" caption="Options">
+                      
+                        </dxi-column>
+                        
+                        <div *dxTemplate="let data of 'cellTemplate'">
+                            <button (click)="editListItem(data)" mat-raised-button color="accent">Edit</button>&nbsp;
+                          </div>
+                    </dx-data-grid>
+
+                </mat-card-content>
+
+
+            </mat-card>
+
+        </div>
+
+    </div>
+
+</div>
