@@ -70,6 +70,11 @@ export const appRoutes: Route[] = [
         {path: 'rooms', loadChildren: () => import('app/modules/admin/rooms/rooms.module').then(m => m.RoomsModule)},
         {path: 'profiles', loadChildren: () => import('app/modules/admin/profiles/profiles.module').then(m => m.ProfilesModule)},
         {path: 'dashboard', loadChildren: () => import('app/modules/admin/dashboard/dashboard.module').then(m => m.DashboardModule)},
+        //datalist routes
+        {path: 'forms/datalists', loadChildren: () => import('app/modules/admin/forms/provider-forms/datalists/datalists.module').then(m => m.DatalistsModule)},
+        {path: 'forms/datalists/:id', loadChildren: () => import('app/modules/admin/forms/provider-forms/datalist/datalist.module').then(m => m.DatalistModule)},
+        {path: 'forms/listtypes', loadChildren: () => import('app/modules/admin/forms/provider-forms/list-types/list-types.module').then(m => m.ListTypesModule)},
+
         ]
     },
 
