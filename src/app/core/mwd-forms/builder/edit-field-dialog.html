@@ -108,6 +108,74 @@
     
           </div>
         </div>
+        <div *ngSwitchCase="'cselect'">
+          <div fxLayout="column">
+            <div fxLayout="row" style="margin-top: 10px;">
+              <div fxLayout="column" fxFlex="noshrink" class="row1">
+                <label id="example-radio-group-label" style="font-weight: bold;">Customer List Type</label>
+                <mat-form-field>
+                <mat-select  [(ngModel)]="copiedField.customerListType" >
+                  <mat-option value="business-line">
+                    Business Line
+                  </mat-option>
+                  <mat-option value="department">
+                    Departments
+                  </mat-option>
+                  <mat-option value="employee">
+                    Employees
+                  </mat-option>
+                  <mat-option value="field-office">
+                    Field Offices
+                  </mat-option>
+                  <mat-option value="job-title">
+                    Job Title
+                  </mat-option>
+
+                </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="column" fxFlex="noshrink" class="row2">
+    
+              </div>
+            </div>
+    
+            <div style="width: 100%;margin-top: 10px;">
+           
+    
+            </div>
+          </div>
+        </div>        
+
+
+        <div *ngSwitchCase="'dselect'">
+          <div fxLayout="column">
+            <div fxLayout="row" style="margin-top: 10px;">
+              <div fxLayout="column" fxFlex="noshrink" class="row1">
+                <label id="example-radio-group-label" style="font-weight: bold;">Data List Type</label>
+                <mat-radio-group [(ngModel)]="copiedField.settings.listType" (change)="updateDataListType($event.value)" >
+    
+                  <mat-radio-button  value="global">Global</mat-radio-button>&nbsp;
+                  <mat-radio-button [disabled]="true" value="customer">Customer Specific</mat-radio-button>
+
+                </mat-radio-group>
+              </div>
+              <div fxLayout="column" fxFlex="noshrink" class="row2">
+                <label id="example-radio-group-label" style="font-weight: bold;">Options</label>
+                <mat-form-field>
+                  <mat-select [(ngModel)]="copiedField.settings.listId">
+                    <mat-option *ngFor="let datalist of datalists" [value]="datalist.id">{{datalist.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+    
+            <div style="width: 100%;margin-top: 10px;">
+
+    
+            </div>
+    
+          </div>
+        </div>        
 
         <div *ngSwitchCase="'input'">
           <div fxLayout="row" style="margin-top: 10px;">

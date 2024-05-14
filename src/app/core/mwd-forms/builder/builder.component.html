@@ -34,6 +34,16 @@
             <mat-select disabled>
             </mat-select>
           </mat-form-field>
+          <mat-form-field *ngIf="field.type == 'cselect'" fxFlex appearance="outline">
+            <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+            <mat-select disabled>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="field.type == 'dselect'" fxFlex appearance="outline">
+            <mat-label>{{field.title}} <span *ngIf="field.required">*</span></mat-label>
+            <mat-select disabled>
+            </mat-select>
+          </mat-form-field>                    
           <mat-checkbox *ngIf="field.type == 'checkbox'" color="primary" [(ngModel)]="form_data.default" disabled>
             {{field.title}} <span *ngIf="field.required">*</span></mat-checkbox>
             <h1 *ngIf="field.type == 'header'">{{field.title}}</h1>
