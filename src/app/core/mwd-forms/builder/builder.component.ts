@@ -618,9 +618,44 @@ export class DialogDataEditDialog implements AfterViewInit {
     this.copiedField.settings.items.splice(Number(itemIndex), 1)
   }
   save() {
-    this.copiedField.conditions = this.query;
-    this.dialogRef.close(this.copiedField)
+    let process = true;
+    let title = '';
+    switch (this.copiedField.type)
+    {
+      case 'dselect':
+        if (!this.copiedField.settings.listId) {
+          process = false;
+          title = "Data List";
+        }
+        break;
+      case 'cselect':
+        if (!this.copiedField.customerListType)
+        {
+          title = "Customer List";
+          process = false;
+        }
+        break;
+      default:
+        break;
+    }
+    
+    if (process)
+    {
+      this.copiedField.conditions = this.query;
+      this.dialogRef.close(this.copiedField)
+    }
+    else {
+      Swal.fire({
+        title: title,
+        text: "Please Choose a list item before saving",
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok'
+      });
 
+    }
     //  console.log(this.copiedField)
   }
 }
