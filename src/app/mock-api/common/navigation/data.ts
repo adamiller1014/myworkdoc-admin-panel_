@@ -44,19 +44,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:user-group',
                 link: '/profiles'
             },
-            {
-                id: 'account.types',
-                title: 'Profile Types',
-                type: 'basic',
-                icon: 'heroicons_outline:user',
-                link: '/profiles/types'
-            },{
-                id: 'account.roles',
-                title: 'Roles',
-                type: 'basic',
-                icon: 'heroicons_outline:lock-closed',
-                link: '/profiles/roles'
-            },
         ]
     }, {
         id: 'cases',
@@ -76,13 +63,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type: 'group',
         icon: 'heroicons_outline:document',
         children: [
-            {
-                id: 'forms.types',
-                title: 'Types',
-                type: 'basic',
-                icon: 'heroicons_outline:document-duplicate',
-                link: '/forms/types'
-            },
             {
                 id: 'forms.provider',
                 title: 'Provider Forms',
