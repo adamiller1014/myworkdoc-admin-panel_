@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { FormsService } from 'app/core/api/forms.service';
 import Swal from 'sweetalert2'
 
 export interface DialogData {
@@ -105,6 +106,46 @@ export class MWDFormBuilderComponent {
                   }
                 })
                 break;
+              case 'cselect':
+                this.form_data.pages[this.activePage].fields.push({
+                  "id": Math.random().toString(36).substr(2, 9),
+                  "type": "cselect",
+                  "title": "New Customer List",
+                  "description": "",
+                  "required": false,
+                  "shortTitle": "",
+                  "settings": {
+                    "customerListType": "business-line",
+                    "source": "customFormBuilderList"
+                  },
+                  "hidden": false,
+                  "conditions": {
+                    "condition": "and",
+                    "rules": []
+                  }
+                })
+                break;  
+              case 'dselect':
+                this.form_data.pages[this.activePage].fields.push({
+                  "id": Math.random().toString(36).substr(2, 9),
+                  "type": "dselect",
+                  "title": "New Data List",
+                  "description": "",
+                  "required": false,
+                  "shortTitle": "",
+                  "settings": {
+                    "listType": 'global',
+                    "listId": 0,                    
+                    "multiple": false,
+                    "source": "customFormBuilderList"
+                  },
+                  "hidden": false,
+                  "conditions": {
+                    "condition": "and",
+                    "rules": []
+                  }
+                })
+                break;                   
               case 'checkbox':
                 this.form_data.pages[this.activePage].fields.push({
                   "id": Math.random().toString(36).substr(2, 9),
@@ -377,7 +418,7 @@ export class DialogDataExampleDialog {
   selector: 'edit-field-dialog',
   templateUrl: './edit-field-dialog.html',
 })
-export class DialogDataEditDialog {
+export class DialogDataEditDialog implements AfterViewInit {
 
   query = {
     condition: 'and',
@@ -397,10 +438,10 @@ export class DialogDataEditDialog {
 
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, public dialogRef: MatDialogRef<DialogDataEditDialog>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData, private _formsService: FormsService,  public dialogRef: MatDialogRef<DialogDataEditDialog>) {
 
     //console.log(this.copiedForm)
-
+    
     var removeIndex = this.copiedForm.pages[this.data.activePage].fields.map((item: { id: any; }) => item.id).indexOf(this.copiedField.id);
     this.copiedForm.pages[this.data.activePage].fields.splice(removeIndex, 1);
 
@@ -461,6 +502,42 @@ export class DialogDataEditDialog {
     this.query = this.copiedField.conditions;
 
   }
+  datalists = [];
+
+
+  ngAfterViewInit(): void {
+    if (this.copiedField.type === 'dselect')
+    {
+      this.updateDataListType(this.data.field.settings.listType);
+    }
+  }
+
+  updateDataListType(selectedValue: string) {
+    switch (selectedValue) 
+    {
+      case "global":
+        this.getLists();
+        break;
+    }
+    // You can perform additional logic here if needed
+  }
+
+  getLists() {
+
+    this._formsService.getLists().subscribe((data) => {
+        if (data.success) {
+
+            data.results.forEach(list => {
+                if(!list.active)
+                  list.name = list.name.concat(' (Disabled)')
+            });
+            
+            this.datalists = data.results
+
+        }
+    })
+}
+
 
   get config1() {
 
@@ -541,9 +618,44 @@ export class DialogDataEditDialog {
     this.copiedField.settings.items.splice(Number(itemIndex), 1)
   }
   save() {
-    this.copiedField.conditions = this.query;
-    this.dialogRef.close(this.copiedField)
+    let process = true;
+    let title = '';
+    switch (this.copiedField.type)
+    {
+      case 'dselect':
+        if (!this.copiedField.settings.listId) {
+          process = false;
+          title = "Data List";
+        }
+        break;
+      case 'cselect':
+        if (!this.copiedField.customerListType)
+        {
+          title = "Customer List";
+          process = false;
+        }
+        break;
+      default:
+        break;
+    }
+    
+    if (process)
+    {
+      this.copiedField.conditions = this.query;
+      this.dialogRef.close(this.copiedField)
+    }
+    else {
+      Swal.fire({
+        title: title,
+        text: "Please Choose a list item before saving",
+        icon: 'error',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok'
+      });
 
+    }
     //  console.log(this.copiedField)
   }
 }
