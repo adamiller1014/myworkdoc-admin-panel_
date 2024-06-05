@@ -7,7 +7,16 @@
             <div class="flex flex-row">
                 <div class="w-full">
                     <div class="text-xl">Profile</div>
-                    <div class="text-secondary">Profile information</div>
+                    <div class="text-secondary">Profile information
+                        <fa-icon [icon]="['fas', 'planet-ringed']"></fa-icon>
+                        <fa-icon [icon]="['fal', 'planet-ringed']"></fa-icon>
+                        <fa-icon [icon]="['fad', 'planet-ringed']"></fa-icon>
+                        <fa-icon [icon]="['far', 'planet-ringed']"></fa-icon>
+                        <fa-icon [icon]="['fat', 'planet-ringed']"></fa-icon>
+
+                        <fa-icon [icon]="['fab', 'github']"></fa-icon>
+
+                    </div>
                 </div>
                 <div class="justify-end">
                     <button *ngIf="profile_id" (click)="resetPassword()" mat-stroked-button type="button">
