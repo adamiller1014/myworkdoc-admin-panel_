@@ -3,24 +3,38 @@
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
 
-        <!-- CONTENT GOES HERE -->
-
+        <!-- Add Provider Form Button -->
         <button class="mb-4" [routerLink]="['/forms/provider/form' ]" mat-raised-button color="primary">New Provider Form</button>
 
-        <dx-data-grid id="gridContainer" [dataSource]="forms" keyExpr="id" [showColumnLines]="true"
-            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" (onRowClick)="gotoRow($event)">
-            <dxo-filter-row [visible]="true"></dxo-filter-row>
-            <dxo-header-filter [visible]="true"></dxo-header-filter>
-            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
-            <dxi-column dataField="id" caption="ID" [width]="80"></dxi-column>
+        <!-- Cases Table Container-->
+        <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between m-6 mb-0">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Profiles List</div>
+            </div>
 
+            <!-- Data Grid -->
+            <dx-data-grid id="gridContainer" 
+                [dataSource]="forms" 
+                keyExpr="id" 
+                [showColumnLines]="true"
+                [showRowLines]="true" 
+                [showBorders]="true" 
+                [rowAlternationEnabled]="true" 
+                (onRowClick)="gotoRow($event)" 
+                [(filterValue)]="filterValue"
+            >
+                <!-- Grid Settings -->
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
 
-            <dxi-column dataField="name"></dxi-column>
-            <dxi-column dataField="active"></dxi-column>
+                <!-- Columns -->
+                <dxi-column dataField="id" caption="ID" [width]="80"></dxi-column>
+                <dxi-column dataField="name"></dxi-column>
+                <dxi-column dataField="active"></dxi-column>
 
-        </dx-data-grid>
-
-
+            </dx-data-grid>
+        </div>
     </div>
-
 </div>

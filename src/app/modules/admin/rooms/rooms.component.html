@@ -1,25 +1,38 @@
 <div class="flex flex-col flex-auto min-w-0">
 
     <!-- Main -->
-    <div class="flex-auto p-2 sm:p-10">
+    <div class="flex-auto p-6 sm:p-10">
 
-        <!-- CONTENT GOES HERE -->
-        <dx-data-grid id="gridContainer" [dataSource]="rooms" keyExpr="id" [showColumnLines]="true"
-            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true">
-            <dxo-filter-row [visible]="true"></dxo-filter-row>
-            <dxo-header-filter [visible]="true"></dxo-header-filter>
-            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
-            <dxi-column dataField="id" caption="ID"></dxi-column>
-            <dxi-column dataField="created_on" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm"></dxi-column>
-            <dxi-column dataField="case_number"></dxi-column>
-            <dxi-column dataField="company_name"></dxi-column>
-            <dxi-column dataField="first_name"></dxi-column>
-            <dxi-column dataField="last_name"></dxi-column>
-        </dx-data-grid>
+        <!-- Cases Table Container-->
+        <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between m-6 mb-0">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Rooms</div>
+            </div>
 
-      
+            <dx-data-grid id="gridContainer" 
+                [dataSource]="rooms" 
+                keyExpr="id" 
+                [showColumnLines]="true"
+                [showRowLines]="true" 
+                [showBorders]="true" 
+                [rowAlternationEnabled]="true" 
+                [(filterValue)]="filterValue"
+            >
+                <!-- Grid Settings -->
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
 
+                <!-- Columns -->
+                <dxi-column dataField="id" caption="ID"></dxi-column>
+                <dxi-column dataField="created_on" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm"></dxi-column>
+                <dxi-column dataField="case_number"></dxi-column>
+                <dxi-column dataField="company_name"></dxi-column>
+                <dxi-column dataField="first_name"></dxi-column>
+                <dxi-column dataField="last_name"></dxi-column>
 
+            </dx-data-grid>
+        </div>
     </div>
-
 </div>
