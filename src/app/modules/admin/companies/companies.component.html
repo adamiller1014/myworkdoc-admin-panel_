@@ -1,24 +1,43 @@
-<div class="flex flex-col flex-auto min-w-0">
+<div class="flex flex-auto justify-center w-full mx-auto p-6 sm:p-8">
+  <div class="w-full max-w-screen-xl mx-auto">
 
-    <!-- Main -->
-    <div class="flex-auto p-2 sm:p-10">
+    <!-- Add Company Button -->
+    <button class="mb-4" [routerLink]="['/companies/new-company']" mat-raised-button color="primary">Add Company</button>
 
-        <!-- CONTENT GOES HERE -->
+    <!-- Cases Table Container-->
+    <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded-2xl overflow-hidden">
+      <div class="flex items-start justify-between m-6 mb-0">
+        <div class="text-lg font-medium tracking-tight leading-6 truncate">Companies</div>
+      </div>
 
-        <button class="mb-4" [routerLink]="['/companies/new-company' ]" mat-raised-button color="primary">Add Company</button>
+      <!-- Data Grid -->
+      <div class="flex flex-col flex-auto h-auto mt-3">
+        <dx-data-grid id="gridContainer" 
+          [dataSource]="companies" 
+          keyExpr="id" 
+          [showColumnLines]="true"
+          [showRowLines]="true" 
+          [showBorders]="true" 
+          [rowAlternationEnabled]="true" 
+          (onRowClick)="gotoRow($event)"
+          [(filterValue)]="filterValue"
+        >
+          <!-- Grid Settings -->
+          <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          <dxo-selection mode="single"></dxo-selection>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+          <dxo-paging [pageSize]="10"></dxo-paging>
 
-        <dx-data-grid id="gridContainer" [dataSource]="companies" keyExpr="id" [showColumnLines]="true"
-            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" (onRowClick)="gotoRow($event)">
-            <dxo-filter-row [visible]="true"></dxo-filter-row>
-            <dxo-header-filter [visible]="true"></dxo-header-filter>
-            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
-            <dxi-column dataField="id" caption="ID" [minWidth]="65"></dxi-column>
-            <dxi-column dataField="joined_on" alignment="right" dataType="date" format="M/d/yyyy" [minWidth]="100"></dxi-column>
-            <dxi-column dataField="name" [minWidth]="120"></dxi-column>
-            <dxi-column dataField="active"></dxi-column>
+          <!-- Columns -->
+          <dxi-column dataField="id" caption="ID" dataType="string" alignment="right" [minWidth]="65"></dxi-column>
+          <dxi-column dataField="joined_on" caption="Joined On" alignment="right" dataType="date" format="M/d/yyyy" [minWidth]="100"></dxi-column>
+          <dxi-column dataField="name" caption="name" datatype="string" [minWidth]="120"></dxi-column>
+          <dxi-column dataField="active" caption="Active" dataType="boolean"></dxi-column>
         </dx-data-grid>
-
-
-    </div>
-
+      </div>
+  </div>
 </div>
+  
