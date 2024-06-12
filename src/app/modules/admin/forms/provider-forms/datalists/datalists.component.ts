@@ -9,7 +9,13 @@ import { FormsService } from 'app/core/api/forms.service';
 })
 export class DatalistsComponent implements OnInit, AfterViewInit {
 
-  forms = []
+    /**
+     * The component filter state
+     */ 
+    filterValue: any = null;
+    filterStorageName: string = 'DatalistsFilter';
+
+    forms = []
 
     
     /**
@@ -24,12 +30,21 @@ export class DatalistsComponent implements OnInit, AfterViewInit {
         this.getLists()
         
     }
+    
     /**
      * After view init
      */
-
     ngAfterViewInit(): void {
+        if (sessionStorage.getItem(this.filterStorageName)) {
+            this.filterValue = JSON.parse(sessionStorage.getItem(this.filterStorageName));
+        }
+    }
 
+    /**
+     * Before Leaving the page
+     */
+    ngOnDestroy() {
+        sessionStorage.setItem(this.filterStorageName, JSON.stringify(this.filterValue));
     }
     
     

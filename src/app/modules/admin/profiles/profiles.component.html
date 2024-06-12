@@ -3,32 +3,42 @@
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
 
-        <!-- CONTENT GOES HERE -->
-        <button class="mb-4" [routerLink]="['/profiles/profile' ]" mat-raised-button color="primary">Add User</button>
+        <!-- Add User Button -->
+        <button class="mb-4" [routerLink]="['/profiles/profile']" mat-raised-button color="primary">Add User</button>
 
-        <dx-data-grid id="gridContainer" [dataSource]="profiles" keyExpr="id" [showColumnLines]="true"
-            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true" (onRowClick)="gotoRow($event)">
-            <dxo-filter-row [visible]="true"></dxo-filter-row>
-            <dxo-header-filter [visible]="true"></dxo-header-filter>
-            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
-            <dxi-column dataField="id" caption="ID" [width]="80" sortOrder="asc"></dxi-column>
+        <!-- Cases Table Container-->
+        <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between m-6 mb-0">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Profiles List</div>
+            </div>
+            
+            <!-- Data Grid -->
+            <dx-data-grid id="gridContainer" 
+                [dataSource]="profiles" 
+                keyExpr="id" 
+                [showColumnLines]="true"
+                [showRowLines]="true" 
+                [showBorders]="true" 
+                [rowAlternationEnabled]="true" 
+                (onRowClick)="gotoRow($event)" 
+                [(filterValue)]="filterValue"
+            >
+                <!-- Grid Settings -->
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
 
-            <dxi-column dataField="created_on" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm"
-                [width]="180"></dxi-column>
+                <!-- Columns -->
+                <dxi-column dataField="id" caption="ID" dataType="string" alignment="right" [width]="80" sortOrder="asc"></dxi-column>
+                <dxi-column dataField="created_on" caption="Created On" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm" [width]="180"></dxi-column>
+                <dxi-column dataField="company_name" caption="Company Name" datatype="string"></dxi-column>
+                <dxi-column dataField="first_name" caption="First Name" datatype="string"></dxi-column>
+                <dxi-column dataField="last_name" caption="Last Name" datatype="string"></dxi-column>
+                <dxi-column dataField="active" caption="Profile Active" datatype="boolean"></dxi-column>
+                <dxi-column dataField="company_active" caption="Company Active" datatype="boolean"></dxi-column>
 
-            <dxi-column dataField="company_name" ></dxi-column>
-            <dxi-column dataField="first_name"></dxi-column>
-            <dxi-column dataField="last_name"></dxi-column>
-            <dxi-column dataField="active"></dxi-column>
-            <dxi-column dataField="company_active"></dxi-column>
-
-        </dx-data-grid>
-
-        <!-- {
-
-        } -->
-
-
+            </dx-data-grid>
+        </div>
     </div>
-
 </div>
