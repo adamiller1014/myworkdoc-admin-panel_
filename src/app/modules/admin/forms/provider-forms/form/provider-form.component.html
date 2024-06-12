@@ -1,7 +1,7 @@
 <div class="flex flex-col flex-auto min-w-0">
   <!-- Main -->
   <form [formGroup]="providerForm">
-    <mat-form-field appearance="fill" class="w-full">
+    <mat-form-field appearance="fill" class="w-full" >
       <mat-label>Case Form Type</mat-label>
       <mat-select required name="case_form_type_id" [formControlName]="'case_form_type_id'">
         <mat-option *ngFor="let type of form_types" [value]="type.id">
@@ -12,6 +12,21 @@
         This field is required
       </mat-error>
     </mat-form-field>
+
+
+    <form [formGroup]="secondForm">
+      <mat-form-field appearance="fill" class="w-full" >
+        <mat-label>Form Context</mat-label>
+        <mat-select required name="type" [formControlName]="'type'">
+          <mat-option [value]="'triage'">Triage</mat-option>
+          <mat-option [value]="'case_management'">Case Management</mat-option>
+        </mat-select>
+        <mat-error *ngIf="secondForm.get('type').hasError('required')">
+          This field is required
+        </mat-error>
+      </mat-form-field>
+    </form>    
+
   </form>
 
   <mwd-form-builder [form_data]="form_data" [disableSaveButton]="providerForm.invalid" (onSaveEvent)="onSubmit($event)"></mwd-form-builder>
