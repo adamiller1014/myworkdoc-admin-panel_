@@ -23,9 +23,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { SharedModule } from 'app/shared/shared.module';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-
 import { fab } from '@fortawesome/free-brands-svg-icons';
-
 import { fas } from '@fortawesome/pro-solid-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
@@ -64,12 +62,13 @@ const exampleRoutes: Route[] = [
         MatAutocompleteModule,
         SharedModule,
         MatCheckboxModule,
-        MatDatepickerModule, FontAwesomeModule,
+        MatDatepickerModule, 
+        FontAwesomeModule,
         RouterModule.forChild(exampleRoutes)
     ]
 })
 export class ProfilesModule {
     constructor(library: FaIconLibrary) {
         library.addIconPacks(fas, fab, fal, far, fad, fat);
-      }
+    }
 }

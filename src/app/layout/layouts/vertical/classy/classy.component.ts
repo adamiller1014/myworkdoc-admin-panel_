@@ -9,6 +9,10 @@ import { NavigationService } from 'app/core/navigation/navigation.service';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
 
+// Special Font Awesome Icons
+import { faUserCircle } from '@fortawesome/pro-solid-svg-icons';
+import { faBars } from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector     : 'classy-layout',
     templateUrl  : './classy.component.html',
@@ -20,6 +24,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
     navigation: Navigation;
     user: User;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    // Special Font Awesome Icons
+    faUserCircle = faUserCircle;
+    faBars = faBars;
 
     /**
      * Constructor

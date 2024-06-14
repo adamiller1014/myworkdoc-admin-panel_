@@ -6,14 +6,22 @@ import { FuseValidators } from '@fuse/validators';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 
+// Special Font Awesome Icons
+import { faEye } from '@fortawesome/pro-solid-svg-icons';
+import { faEyeSlash } from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector     : 'auth-reset-password',
     templateUrl  : './reset-password.component.html',
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })
-export class AuthResetPasswordComponent implements OnInit
-{
+export class AuthResetPasswordComponent implements OnInit {
+
+    // Special Font Awesome Icons
+    faEye = faEye;
+    faEyeSlash = faEyeSlash;
+
     @ViewChild('resetPasswordNgForm') resetPasswordNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {

@@ -5,6 +5,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseFullscreenComponent } from '@fuse/components/fullscreen/fullscreen.component';
 import { CommonModule } from '@angular/common';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 @NgModule({
     declarations: [
         FuseFullscreenComponent
@@ -13,12 +21,15 @@ import { CommonModule } from '@angular/common';
         MatButtonModule,
         MatIconModule,
         MatTooltipModule,
-        CommonModule
+        CommonModule, 
+        FontAwesomeModule,
     ],
     exports     : [
         FuseFullscreenComponent
     ]
 })
-export class FuseFullscreenModule
-{
+export class FuseFullscreenModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }

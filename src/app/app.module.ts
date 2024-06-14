@@ -54,7 +54,8 @@ const routerConfig: ExtraOptions = {
 
         // 3rd party modules that require global configuration via forRoot
         MarkdownModule.forRoot({}),
-        MatMomentDateModule, FontAwesomeModule
+        MatMomentDateModule, 
+        FontAwesomeModule
         ],
     providers:[
         CompaniesService,
@@ -74,6 +75,5 @@ export class AppModule
 {
     constructor(library: FaIconLibrary) {
         library.addIconPacks(fas, fab, fal, far, fad, fat);
-      }
-    
+    } 
 }

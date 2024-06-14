@@ -21,38 +21,37 @@
 
         <!-- Default icons -->
         <div class="fuse-alert-default-icon">
-
-            <mat-icon
+            <fa-icon 
                 *ngIf="type === 'primary'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-
-            <mat-icon
+                [icon]="faCheckCircle"></fa-icon>
+            
+            <fa-icon 
                 *ngIf="type === 'accent'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                [icon]="faCheckCircle"></fa-icon>
 
-            <mat-icon
+            <fa-icon 
                 *ngIf="type === 'warn'"
-                [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
+                [icon]="faTimesCircle"></fa-icon>
 
-            <mat-icon
+            <fa-icon 
                 *ngIf="type === 'basic'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                [icon]="faCheckCircle"></fa-icon>
 
-            <mat-icon
+            <fa-icon 
                 *ngIf="type === 'info'"
-                [svgIcon]="'heroicons_solid:information-circle'"></mat-icon>
+                [icon]="faInfoCircle"></fa-icon>
 
-            <mat-icon
+                <fa-icon 
                 *ngIf="type === 'success'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                [icon]="faCheckCircle"></fa-icon>
 
-            <mat-icon
+                <fa-icon 
                 *ngIf="type === 'warning'"
-                [svgIcon]="'heroicons_solid:exclamation'"></mat-icon>
+                [icon]="faExclamationCircle"></fa-icon>
 
-            <mat-icon
+                <fa-icon 
                 *ngIf="type === 'error'"
-                [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
+                [icon]="faTimesCircle"></fa-icon>
 
         </div>
 
@@ -76,7 +75,7 @@
         class="fuse-alert-dismiss-button"
         mat-icon-button
         (click)="dismiss()">
-        <mat-icon [svgIcon]="'heroicons_solid:x'"></mat-icon>
+        <fa-icon [icon]="faTimesCircle"></fa-icon>
     </button>
 
 </div>

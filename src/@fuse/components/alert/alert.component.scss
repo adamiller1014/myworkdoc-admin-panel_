@@ -10,7 +10,7 @@ fuse-alert {
         line-height: 1;
 
         /* All icons */
-        .mat-icon {
+        .fa-icon {
             color: currentColor !important;
         }
 
@@ -34,7 +34,7 @@ fuse-alert {
 
             .fuse-alert-default-icon {
 
-                .mat-icon {
+                .fa-icon {
                     @apply icon-size-5;
                 }
             }
@@ -100,7 +100,7 @@ fuse-alert {
             min-height: 32px !important;
             line-height: 32px !important;
 
-            .mat-icon {
+            .fa-icon {
                 @apply icon-size-4;
             }
         }

@@ -6,9 +6,16 @@ import { takeUntil } from 'rxjs/operators';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
 
+// Special Font Awesome Icons
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle } from '@fortawesome/pro-solid-svg-icons';
+
+
 @Component({
     selector       : 'user',
     templateUrl    : './user.component.html',
+    styleUrls      : ['../../nav-bar.styles.scss'],
     encapsulation  : ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs       : 'user'
@@ -18,6 +25,11 @@ export class UserComponent implements OnInit, OnDestroy
     /* eslint-disable @typescript-eslint/naming-convention */
     static ngAcceptInputType_showAvatar: BooleanInput;
     /* eslint-enable @typescript-eslint/naming-convention */
+
+    // Special Font Awesome Icons
+    faSignOutAlt = faSignOutAlt;
+    faEllipsisH = faEllipsisH;
+    faUserCircle = faUserCircle;
 
     @Input() showAvatar: boolean = false;
     user: User;
