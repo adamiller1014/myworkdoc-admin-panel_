@@ -19,40 +19,35 @@
                             <span class="font-medium text-sm text-secondary">New List Type</span>
                         </button> 
                         </div>
-                    <br />
     
-                            
-                    <dx-data-grid id="gridContainer" [dataSource]="items" keyExpr="id" [showColumnLines]="true"
-                        [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true">
-                        <dxo-filter-row [visible]="true">
-                        </dxo-filter-row>
-                        <!-- <dxo-search-panel 
-                        [visible]="true" 
-                        [width]="240" 
-                        placeholder="Search..."></dxo-search-panel> -->
+                    
+                    <!-- Data Grid -->
+                    <dx-data-grid id="gridContainer" 
+                        [dataSource]="items" 
+                        keyExpr="id" 
+                        [showColumnLines]="true"
+                        [showRowLines]="true" 
+                        [showBorders]="true" 
+                        [rowAlternationEnabled]="true"
+                        [(filterValue)]="filterValue"
+                    >
+
+                        <!-- Grid Settings -->
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-filter-panel [visible]="true"></dxo-filter-panel>
                         <dxo-header-filter [visible]="true"></dxo-header-filter>
-                        <dxo-paging [pageSize]="10">
-                        </dxo-paging>
-                        <dxi-column dataField="name" alignment="left">
+                        <dxo-paging [pageSize]="10"></dxo-paging>
 
-                        </dxi-column>
-
-                        <dxi-column type="buttons" cellTemplate="cellTemplate" caption="Options">
-                      
-                        </dxi-column>
-                        
+                        <!-- Columns -->
+                        <dxi-column dataField="name" alignment="left"></dxi-column>
+                        <dxi-column type="buttons" cellTemplate="cellTemplate" caption="Options"></dxi-column>
                         <div *dxTemplate="let data of 'cellTemplate'">
                             <button (click)="editListItem(data)" mat-raised-button color="accent">Edit</button>&nbsp;
-                          </div>
+                        </div>
                     </dx-data-grid>
 
                 </mat-card-content>
-
-
             </mat-card>
-
         </div>
-
     </div>
-
 </div>
