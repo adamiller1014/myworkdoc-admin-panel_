@@ -1,9 +1,9 @@
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ProfileService } from 'app/core/api/profile.service';
-import {
-    ChartComponent,
-  
-  } from "ng-apexcharts";
+import { ChartComponent } from "ng-apexcharts";
+
+// Special Font Awesome Icons
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'dashboard',
@@ -13,6 +13,9 @@ import {
 
 export class DashboardComponent {
     @ViewChild('chartObj') chart: ChartComponent;
+
+    // Special Font Awesome Icons
+    faEllipsisVertical = faEllipsisVertical;
 
     profilesDateRange = {
         name: '30 Days',

@@ -8,6 +8,9 @@ import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/ver
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 
+// Special Font Awesome Icons
+import { faChevronRight} from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector       : 'fuse-vertical-navigation-collapsable-item',
     templateUrl    : './collapsable.component.html',
@@ -23,6 +26,9 @@ export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, O
     @Input() autoCollapse: boolean;
     @Input() item: FuseNavigationItem;
     @Input() name: string;
+
+    // Special Font Awesome Icons
+    faChevronRight = faChevronRight;
 
     isCollapsed: boolean = true;
     isExpanded: boolean = false;

@@ -16,6 +16,14 @@ import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { CenteredLayoutComponent } from 'app/layout/layouts/horizontal/centered/centered.component';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 @NgModule({
     declarations: [
         CenteredLayoutComponent
@@ -35,12 +43,15 @@ import { CenteredLayoutComponent } from 'app/layout/layouts/horizontal/centered/
         SearchModule,
         ShortcutsModule,
         UserModule,
-        SharedModule
+        SharedModule, 
+        FontAwesomeModule,
     ],
     exports     : [
         CenteredLayoutComponent
     ]
 })
-export class CenteredLayoutModule
-{
+export class CenteredLayoutModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }

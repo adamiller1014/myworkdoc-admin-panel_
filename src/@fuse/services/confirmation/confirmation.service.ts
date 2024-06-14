@@ -4,6 +4,9 @@ import { merge } from 'lodash-es';
 import { FuseConfirmationDialogComponent } from '@fuse/services/confirmation/dialog/dialog.component';
 import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
 
+// Font Awesome Icons
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Injectable()
 export class FuseConfirmationService
 {
@@ -12,7 +15,7 @@ export class FuseConfirmationService
         message    : 'Are you sure you want to confirm this action?',
         icon       : {
             show : true,
-            name : 'heroicons_outline:exclamation',
+            name : faExclamationCircle.iconName,
             color: 'warn'
         },
         actions    : {

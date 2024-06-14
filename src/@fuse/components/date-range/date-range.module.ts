@@ -9,6 +9,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FuseDateRangeComponent } from '@fuse/components/date-range/date-range.component';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 @NgModule({
     declarations: [
         FuseDateRangeComponent
@@ -21,12 +29,15 @@ import { FuseDateRangeComponent } from '@fuse/components/date-range/date-range.c
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-        MatMomentDateModule
+        MatMomentDateModule, 
+        FontAwesomeModule,
     ],
     exports     : [
         FuseDateRangeComponent
     ]
 })
-export class FuseDateRangeModule
-{
+export class FuseDateRangeModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }

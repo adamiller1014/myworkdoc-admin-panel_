@@ -28,10 +28,10 @@
                     *ngIf="user.avatar"
                     [src]="user.avatar"
                     alt="User avatar">
-                <mat-icon
+                <fa-icon 
                     class="icon-size-24"
                     *ngIf="!user.avatar"
-                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    [icon]="faUserCircle"></fa-icon>
             </div>
             <div class="flex flex-col items-center justify-center w-full mt-6">
                 <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
@@ -62,7 +62,7 @@
         <button
             mat-icon-button
             (click)="toggleNavigation('mainNavigation')">
-            <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+            <fa-icon [icon]="faBars"></fa-icon>
         </button>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-1 sm:space-x-2">

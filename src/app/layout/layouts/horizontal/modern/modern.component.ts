@@ -7,6 +7,9 @@ import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/co
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 
+// Special Font Awesome Icons
+import { faBars } from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector     : 'modern-layout',
     templateUrl  : './modern.component.html',
@@ -17,6 +20,9 @@ export class ModernLayoutComponent implements OnInit, OnDestroy
     isScreenSmall: boolean;
     navigation: Navigation;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    // Special Font Awesome Icons
+    faBars = faBars;
 
     /**
      * Constructor

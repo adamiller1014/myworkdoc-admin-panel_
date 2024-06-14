@@ -20,6 +20,14 @@ import { MatCardModule } from '@angular/material/card';
 import { DatalistComponent } from './datalist.component';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 const casesRoutes: Route[] = [
     {
         path     : '',
@@ -50,9 +58,12 @@ const casesRoutes: Route[] = [
         DxButtonModule,
         MatTabsModule,
         MatCardModule,
+        FontAwesomeModule,
 
     ]
 })
-export class DatalistModule
-{
+export class DatalistModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }
