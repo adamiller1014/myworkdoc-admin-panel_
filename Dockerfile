@@ -6,6 +6,7 @@ ENV STAGE=${CONFIG}
 ## change working directory
 WORKDIR /app
 COPY package*.json ./
+COPY .npmrc ./
 RUN npm install --legacy-peer-deps
 COPY . .
 RUN $(npm bin)/ng build --configuration=$STAGE --source-map=false

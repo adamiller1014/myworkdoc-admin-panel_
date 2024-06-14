@@ -8,6 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
+
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 const exampleRoutes: Route[] = [
     {
         path     : '',
@@ -27,9 +36,12 @@ const exampleRoutes: Route[] = [
         MatButtonModule,
         MatButtonToggleModule,
         NgApexchartsModule,
-        SharedModule
+        SharedModule, 
+        FontAwesomeModule,
     ]
 })
-export class DashboardModule
-{
+export class DashboardModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }

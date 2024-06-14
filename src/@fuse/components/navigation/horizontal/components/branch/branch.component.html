@@ -83,10 +83,11 @@
 
             <!-- Icon -->
             <ng-container *ngIf="item.icon">
-                <mat-icon
+                <fa-icon 
                     class="fuse-horizontal-navigation-item-icon"
                     [ngClass]="item.classes?.icon"
-                    [svgIcon]="item.icon"></mat-icon>
+                    [icon]="item.icon">
+                </fa-icon>
             </ng-container>
 
             <!-- Title & Subtitle -->

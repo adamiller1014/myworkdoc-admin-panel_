@@ -11,6 +11,14 @@ import { SharedModule } from 'app/shared/shared.module';
 import { AuthUnlockSessionComponent } from 'app/modules/auth/unlock-session/unlock-session.component';
 import { authUnlockSessionRoutes } from 'app/modules/auth/unlock-session/unlock-session.routing';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 @NgModule({
     declarations: [
         AuthUnlockSessionComponent
@@ -24,9 +32,12 @@ import { authUnlockSessionRoutes } from 'app/modules/auth/unlock-session/unlock-
         MatProgressSpinnerModule,
         FuseCardModule,
         FuseAlertModule,
-        SharedModule
+        SharedModule, 
+        FontAwesomeModule,
     ]
 })
-export class AuthUnlockSessionModule
-{
+export class AuthUnlockSessionModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }

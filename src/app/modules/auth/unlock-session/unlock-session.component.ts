@@ -6,14 +6,22 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { UserService } from 'app/core/user/user.service';
 import { FuseAlertType } from '@fuse/components/alert';
 
+// Special Font Awesome Icons
+import { faEye } from '@fortawesome/pro-solid-svg-icons';
+import { faEyeSlash } from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector     : 'auth-unlock-session',
     templateUrl  : './unlock-session.component.html',
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })
-export class AuthUnlockSessionComponent implements OnInit
-{
+export class AuthUnlockSessionComponent implements OnInit {
+
+    // Special Font Awesome Icons
+    faEye = faEye;
+    faEyeSlash = faEyeSlash;
+    
     @ViewChild('unlockSessionNgForm') unlockSessionNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {

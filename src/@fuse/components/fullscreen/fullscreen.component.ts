@@ -2,6 +2,9 @@ import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef,
 import { DOCUMENT } from '@angular/common';
 import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen/fullscreen.types';
 
+// Special Font Awesome Icons
+import { faMaximize } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
     selector       : 'fuse-fullscreen',
     templateUrl    : './fullscreen.component.html',
@@ -16,6 +19,9 @@ export class FuseFullscreenComponent implements OnInit
     private _fsDoc: FSDocument;
     private _fsDocEl: FSDocumentElement;
     private _isFullscreen: boolean = false;
+
+    // Special Font Awesome Icons
+    faMaximize = faMaximize;
 
     /**
      * Constructor
