@@ -102,7 +102,7 @@ definitions:
     # - Simplify with prod.
     #
     - step: &build-prod-myworkdoc-admin-panel
-        size: 2x
+        size: 4x
         name: Build myworkdoc-admin-panel and push to ECR
         oidc: true
         script:
@@ -178,7 +178,7 @@ definitions:
     # Deploys the MyWorkDoc UI Portal image from ECR to ECS and updates the service
     #
     - step: &deploy-prod-myworkdoc-admin-panel
-        size: 2x
+        size: 4x
         name: Update ECS Service
         oidc: true
         script:
