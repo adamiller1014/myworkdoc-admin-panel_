@@ -6,6 +6,14 @@ import { FuseConfirmationService } from '@fuse/services/confirmation/confirmatio
 import { FuseConfirmationDialogComponent } from '@fuse/services/confirmation/dialog/dialog.component';
 import { CommonModule } from '@angular/common';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 @NgModule({
     declarations: [
         FuseConfirmationDialogComponent
@@ -14,7 +22,8 @@ import { CommonModule } from '@angular/common';
         MatButtonModule,
         MatDialogModule,
         MatIconModule,
-        CommonModule
+        CommonModule, 
+        FontAwesomeModule,
     ],
     providers   : [
         FuseConfirmationService
@@ -25,7 +34,7 @@ export class FuseConfirmationModule
     /**
      * Constructor
      */
-    constructor(private _fuseConfirmationService: FuseConfirmationService)
-    {
+    constructor(private _fuseConfirmationService: FuseConfirmationService, library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
     }
 }

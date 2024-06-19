@@ -11,10 +11,11 @@
 
         <!-- Icon -->
         <ng-container *ngIf="item.icon">
-            <mat-icon
+            <fa-icon 
                 class="fuse-vertical-navigation-item-icon"
                 [ngClass]="item.classes?.icon"
-                [svgIcon]="item.icon"></mat-icon>
+                [icon]="item.icon">
+            </fa-icon>
         </ng-container>
 
         <!-- Title & Subtitle -->
@@ -45,9 +46,7 @@
         </ng-container>
 
         <!-- Arrow -->
-        <mat-icon
-            class="fuse-vertical-navigation-item-arrow icon-size-4"
-            [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+        <fa-icon class="fuse-vertical-navigation-item-arrow icon-size-4" [icon]="faChevronRight"></fa-icon>
 
     </div>
 

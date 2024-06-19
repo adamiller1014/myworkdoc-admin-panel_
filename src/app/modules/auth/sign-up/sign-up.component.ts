@@ -5,6 +5,10 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 
+// Special Font Awesome Icons
+import { faEye } from '@fortawesome/pro-solid-svg-icons';
+import { faEyeSlash } from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector     : 'auth-sign-up',
     templateUrl  : './sign-up.component.html',
@@ -13,6 +17,11 @@ import { AuthService } from 'app/core/auth/auth.service';
 })
 export class AuthSignUpComponent implements OnInit
 {
+
+    // Special Font Awesome Icons
+    faEye = faEye;
+    faEyeSlash = faEyeSlash;
+
     @ViewChild('signUpNgForm') signUpNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {

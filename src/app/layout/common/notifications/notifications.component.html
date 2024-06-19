@@ -10,7 +10,7 @@
             </span>
         </span>
     </ng-container>
-    <mat-icon [svgIcon]="'heroicons_outline:bell'"></mat-icon>
+    <fa-icon [icon]="['fas', 'bell']"></fa-icon>
 </button>
 
 <!-- Notifications panel -->
@@ -24,9 +24,7 @@
                 <button
                     mat-icon-button
                     (click)="closePanel()">
-                    <mat-icon
-                        class="icon-size-5 text-current"
-                        [svgIcon]="'heroicons_solid:x'"></mat-icon>
+                    <fa-icon class="icon-size-5 text-current" [icon]="['fas', 'times']"></fa-icon>
                 </button>
             </div>
             <div class="text-lg font-medium leading-10">Notifications</div>
@@ -36,9 +34,7 @@
                     [matTooltip]="'Mark all as read'"
                     [disabled]="unreadCount === 0"
                     (click)="markAllAsRead()">
-                    <mat-icon
-                        class="icon-size-5 text-current"
-                        [svgIcon]="'heroicons_solid:mail-open'"></mat-icon>
+                    <fa-icon class="icon-size-5 text-current" [icon]="['fas', 'envelope-open']"></fa-icon>
                 </button>
             </div>
         </div>
@@ -97,9 +93,7 @@
                             mat-icon-button
                             (click)="delete(notification)"
                             [matTooltip]="'Remove'">
-                            <mat-icon
-                                class="icon-size-4"
-                                [svgIcon]="'heroicons_solid:x'"></mat-icon>
+                            <fa-icon class="icon-size-4" [icon]="['fas', 'times']"></fa-icon>
                         </button>
                     </div>
 
@@ -110,10 +104,10 @@
                     <!-- Icon -->
                     <ng-container *ngIf="notification.icon && !notification.image">
                         <div class="flex flex-shrink-0 items-center justify-center w-8 h-8 mr-4 rounded-full bg-gray-100 dark:bg-gray-700">
-                            <mat-icon
+                            <fa-icon 
                                 class="icon-size-5"
-                                [svgIcon]="notification.icon">
-                            </mat-icon>
+                                [icon]="notification.icon">
+                            </fa-icon>
                         </div>
                     </ng-container>
                     <!-- Image -->
@@ -146,9 +140,7 @@
             <ng-container *ngIf="!notifications || !notifications.length">
                 <div class="flex flex-col flex-auto items-center justify-center sm:justify-start py-12 px-8">
                     <div class="flex flex-0 items-center justify-center w-14 h-14 rounded-full bg-primary-100">
-                        <mat-icon
-                            class="text-primary-500-700"
-                            [svgIcon]="'heroicons_outline:bell'"></mat-icon>
+                        <fa-icon class="text-primary-500-700" [icon]="['fas', 'bell']"></fa-icon>
                     </div>
                     <div class="mt-5 text-2xl font-semibold tracking-tight">No notifications</div>
                     <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">When you have notifications, they will appear here.</div>

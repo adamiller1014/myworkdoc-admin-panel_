@@ -121,7 +121,7 @@
     /* Lower the icon opacity on disabled buttons */
     &.mat-button-disabled {
 
-        .mat-icon {
+        .fa-icon {
             opacity: 0.38 !important;
         }
     }
@@ -169,7 +169,7 @@
 .mat-fab,
 .mat-mini-fab {
 
-    .mat-icon {
+    .fa-icon {
         color: currentColor !important;
     }
 
@@ -223,7 +223,7 @@
     /* Apply primary color */
     &.mat-primary:not(.mat-button-disabled) {
 
-        .mat-icon {
+        .fa-icon {
             @apply text-primary #{'!important'};
         }
     }
@@ -231,7 +231,7 @@
     /* Apply accent color */
     &.mat-accent:not(.mat-button-disabled) {
 
-        .mat-icon {
+        .fa-icon {
             @apply text-accent #{'!important'};
         }
     }
@@ -239,7 +239,7 @@
     /* Apply warn color */
     &.mat-warn:not(.mat-button-disabled) {
 
-        .mat-icon {
+        .fa-icon {
             @apply text-warn #{'!important'};
         }
     }
@@ -527,7 +527,7 @@
 
             .mat-form-field-prefix {
 
-                > .mat-icon {
+                > .fa-icon {
                     margin-right: 12px;
                 }
 
@@ -543,14 +543,14 @@
                     margin-left: -8px;
                 }
 
-                > *:not(.mat-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
+                > *:not(.fa-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
                     margin-right: 12px;
                 }
             }
 
             .mat-form-field-suffix {
 
-                > .mat-icon {
+                > .fa-icon {
                     margin-left: 12px;
                 }
 
@@ -581,13 +581,13 @@
                     min-height: 40px;
                 }
 
-                .mat-icon,
+                .fa-icon,
                 .mat-icon-button:not(.mat-button-disabled),
                 .mat-select-value {
                     @apply text-hint;
                 }
 
-                /* Remove the margins from the mat-icon if it's inside a button */
+                /* Remove the margins from the fa-icon if it's inside a button */
                 /* Force the icon size to 24 */
                 .mat-button,
                 .mat-raised-button,
@@ -597,7 +597,7 @@
                 .mat-fab,
                 .mat-mini-fab {
 
-                    .mat-icon {
+                    .fa-icon {
                         margin: 0 !important;
                         @apply icon-size-6;
                     }
@@ -640,7 +640,7 @@
 
                             mat-select-trigger {
 
-                                .mat-icon {
+                                .fa-icon {
                                     margin: 0 !important;
                                 }
                             }
@@ -838,7 +838,7 @@
                     .mat-form-field-prefix {
                         border-radius: 24px 0 0 24px;
 
-                        > .mat-icon {
+                        > .fa-icon {
                             margin-right: 12px;
                         }
 
@@ -862,7 +862,7 @@
                     .mat-form-field-suffix {
                         border-radius: 0 24px 24px 0;
 
-                        > .mat-icon {
+                        > .fa-icon {
                             margin-left: 12px !important;
                         }
 
@@ -878,7 +878,7 @@
                             margin-left: 4px !important;
                         }
 
-                        > *:not(.mat-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
+                        > *:not(.fa-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
                             margin-left: 12px !important;
                         }
                     }
@@ -974,7 +974,7 @@
                     border-radius: 6px 0 0 6px;
                     border-right-width: 1px;
 
-                    > .mat-icon {
+                    > .fa-icon {
                         margin-right: 16px;
                     }
 
@@ -990,7 +990,7 @@
                         margin-right: 8px;
                     }
 
-                    > *:not(.mat-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
+                    > *:not(.fa-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
                         margin-right: 16px;
                     }
                 }
@@ -1001,7 +1001,7 @@
                     border-radius: 0 6px 6px 0;
                     border-left-width: 1px;
 
-                    > .mat-icon {
+                    > .fa-icon {
                         margin-left: 16px;
                     }
 
@@ -1017,7 +1017,7 @@
                         margin-left: 8px;
                     }
 
-                    > *:not(.mat-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
+                    > *:not(.fa-icon):not(.mat-icon-button):not(.mat-select):not(.mat-datepicker-toggle) {
                         margin-left: 16px;
                     }
                 }
@@ -1073,7 +1073,7 @@
 /* ----------------------------------------------------------------------------------------------------- */
 /*  @ Icon
 /* ----------------------------------------------------------------------------------------------------- */
-.mat-icon {
+.fa-icon {
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
@@ -1152,7 +1152,7 @@
                 padding-right: 40px;
             }
 
-            .mat-icon {
+            .fa-icon {
                 margin-right: 12px;
             }
         }
@@ -1292,8 +1292,8 @@
 /* ----------------------------------------------------------------------------------------------------- */
 .mat-step-icon {
 
-    /* Do not override the mat-icon color */
-    .mat-icon {
+    /* Do not override the fa-icon color */
+    .fa-icon {
         color: currentColor !important;
     }
 }
@@ -1383,7 +1383,7 @@ textarea.mat-input-element {
     /* Apply primary contrast color */
     &.mat-primary {
 
-        .mat-icon {
+        .fa-icon {
             @apply text-on-primary #{'!important'};
         }
 
@@ -1407,7 +1407,7 @@ textarea.mat-input-element {
     /* Apply accent contrast color */
     &.mat-accent {
 
-        .mat-icon {
+        .fa-icon {
             @apply text-on-accent #{'!important'};
         }
 
@@ -1431,7 +1431,7 @@ textarea.mat-input-element {
     /* Apply warn contrast color */
     &.mat-warn {
 
-        .mat-icon {
+        .fa-icon {
             @apply text-on-warn #{'!important'};
         }
 

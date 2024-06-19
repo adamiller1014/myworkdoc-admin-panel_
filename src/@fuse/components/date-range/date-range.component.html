@@ -33,7 +33,7 @@
                     mat-icon-button
                     (click)="prev()"
                     tabindex="1">
-                    <mat-icon [svgIcon]="'heroicons_outline:chevron-left'"></mat-icon>
+                    <fa-icon [icon]="faChevronLeft"></fa-icon>
                 </button>
                 <div class="month-label">{{getMonthLabel(1)}}</div>
             </div>
@@ -72,7 +72,7 @@
                     mat-icon-button
                     (click)="next()"
                     tabindex="2">
-                    <mat-icon [svgIcon]="'heroicons_outline:chevron-right'"></mat-icon>
+                    <fa-icon [icon]="faChevronRight"></fa-icon>
                 </button>
             </div>
             <mat-month-view

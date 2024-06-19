@@ -20,6 +20,14 @@ import { MWDFormsModule } from 'app/core/mwd-forms/mwd-forms.module';
 import { ListTypeComponent } from './provider-forms/list-type/list-type.component';
 import { NewDatalistItemComponent } from './provider-forms/new-datalist-item/new-datalist-item.component';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 const exampleRoutes: Route[] = [
     {
         path: 'provider',
@@ -38,7 +46,9 @@ const exampleRoutes: Route[] = [
 @NgModule({
     declarations: [
         ProviderFormsComponent,
-        ProviderFormComponent,NewDatalistItemComponent, ListTypeComponent
+        ProviderFormComponent,
+        NewDatalistItemComponent, 
+        ListTypeComponent
         
     ],
     imports: [
@@ -57,8 +67,12 @@ const exampleRoutes: Route[] = [
         SharedModule,
         MatCheckboxModule,
         MatDatepickerModule,
-        MWDFormsModule
+        MWDFormsModule,
+        FontAwesomeModule
     ]
 })
 export class FormsModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }

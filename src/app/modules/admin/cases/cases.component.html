@@ -4,35 +4,40 @@
     <div class="flex-auto p-6 sm:p-10">
 
         <!-- CONTENT GOES HERE -->
-        <dx-data-grid id="gridContainer" [dataSource]="cases" keyExpr="id" [showColumnLines]="true"
-            [showRowLines]="true" [showBorders]="true" [rowAlternationEnabled]="true">
-            <dxo-filter-row [visible]="true"></dxo-filter-row>
-            <dxo-header-filter [visible]="true"></dxo-header-filter>
-            <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
-            <dxi-column dataField="id" caption="ID" [width]="80"></dxi-column>
+        <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between m-6 mb-0">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Cases</div>
+            </div>
 
-            <dxi-column dataField="created_on" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm"
-                [width]="180"></dxi-column>
+            <dx-data-grid id="gridContainer" 
+                [dataSource]="cases" 
+                keyExpr="id" 
+                [showColumnLines]="true"
+                [showRowLines]="true" 
+                [showBorders]="true" 
+                [rowAlternationEnabled]="true"
+                [(filterValue)]="filterValue"
+            >
 
-            <dxi-column dataField="case_number"></dxi-column>
-            <dxi-column dataField="closed"></dxi-column>
-            <dxi-column dataField="company_active"></dxi-column>
-            <dxi-column dataField="profile_active"></dxi-column>
+                <!-- Grid Settings -->
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
 
-        </dx-data-grid>
+                <!-- Columns -->
+                <dxi-column dataField="id" caption="ID" [width]="80"></dxi-column>
+                <dxi-column dataField="created_on" caption="Created On" alignment="right" dataType="datetime" format="M/d/yyyy, hh:mm" [width]="180"></dxi-column>
+                <dxi-column dataField="case_number" caption="Case Number"></dxi-column>
+                <dxi-column dataField="closed" caption="Closed"></dxi-column>
+                <dxi-column dataField="company_active" caption="Company Active"></dxi-column>
+                <dxi-column dataField="profile_active" caption="Profile Active"></dxi-column>
 
-        <!-- {
-            "id": 1,
-            "profile_id": 1,
-            "vonage_video_sid": "",
-            "created_on": "2021-08-10T22:15:31.556Z",
-            "company_active": true,
-            "profile_active": true,
-            "case_number": 1000,
-            "closed": false
-        } -->
+                <!----------------------------------------->
 
 
+            </dx-data-grid>
+
+        </div>
     </div>
-
 </div>

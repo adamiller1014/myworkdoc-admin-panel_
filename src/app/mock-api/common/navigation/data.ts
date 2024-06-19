@@ -1,47 +1,50 @@
 /* tslint:disable:max-line-length */
 import { FuseNavigationItem } from '@fuse/components/navigation';
 
+// Font Awesome Icons
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faCity } from '@fortawesome/free-solid-svg-icons';
+import { faIdCard } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { faClone } from '@fortawesome/free-solid-svg-icons';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/pro-regular-svg-icons';
+
 export const defaultNavigation: FuseNavigationItem[] = [
     {
         id: 'dashboards',
         title: 'Dashboard',
         type: 'group',
-        icon: 'heroicons_outline:home',
+        icon: faHouse.iconName,
         children: [
             {
                 id: 'dashboards.general',
                 title: 'General',
                 type: 'basic',
-                icon: 'heroicons_outline:clipboard-check',
+                icon: faHouse.iconName,
                 link: '/dashboard'
             },
-       /*       {
-                id: 'dashboards.analytics',
-                title: 'Analytics',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/dashboards/analytics'
-            }, */
         ]
     },
     {
         id: 'companies',
         title: 'Companies',
         type: 'basic',
-        icon: 'heroicons_outline:office-building',
+        icon: faCity.iconName,
         link: '/companies'
     },
     {
         id: 'account',
         title: 'Profiles',
         type: 'group',
-        icon: 'heroicons_outline:users',
+        icon: faIdCard.iconName,
         children: [
             {
                 id: 'account.profiles',
                 title: 'Profile List',
                 type: 'basic',
-                icon: 'heroicons_outline:user-group',
+                icon: faIdCard.iconName,
                 link: '/profiles'
             },
         ]
@@ -49,39 +52,39 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id: 'cases',
         title: 'Cases',
         type: 'basic',
-        icon: 'heroicons_outline:briefcase',
+        icon: faBriefcase.iconName,
         link: '/cases'
     }, {
         id: 'rooms',
         title: 'Rooms',
         type: 'basic',
-        icon: 'heroicons_outline:collection',
+        icon: faClone.iconName,
         link: '/rooms'
     }, {
         id: 'forms',
         title: 'Forms',
         type: 'group',
-        icon: 'heroicons_outline:document',
+        icon: faFile.iconName,
         children: [
             {
                 id: 'forms.provider',
                 title: 'Provider Forms',
                 type: 'basic',
-                icon: 'heroicons_outline:document-text',
+                icon: faFile.iconName,
                 link: '/forms/provider'
             },
             {
                 id: 'forms.datalists',
                 title: 'Data Lists',
                 type: 'basic',
-                icon: 'heroicons_outline:view-list',
+                icon: faList.iconName,
                 link: '/forms/datalists'
             },
             {
                 id: 'forms.listtypes',
                 title: 'List Types',
                 type: 'basic',
-                icon: 'heroicons_outline:star',
+                icon: faStar.iconName,
                 link: '/forms/listtypes'
             }                                    
         ]

@@ -14,14 +14,14 @@
                 <div class="sm:col-span-1">
                     <mat-form-field class="fuse-mat-no-subscript w-full">
                         <mat-label>Name</mat-label>
-                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:office-building'" matPrefix></mat-icon>
+                        <fa-icon [icon]="['fas', 'city']" class="icon-size-5" matPrefix></fa-icon>
                         <input [formControlName]="'name'" matInput>
                     </mat-form-field>
                 </div>
                 <div class="sm:col-span-1">
                     <mat-form-field class="fuse-mat-no-subscript w-full">
                         <mat-label>Address</mat-label>
-                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:home'" matPrefix></mat-icon>
+                        <fa-icon [icon]="['fas', 'house']" class="icon-size-5" matPrefix></fa-icon>
                         <input [formControlName]="'address'" matInput>
                     </mat-form-field>
                 </div>
@@ -30,7 +30,7 @@
 
                     <mat-form-field class="fuse-mat-no-subscript w-full">
                         <mat-label>Hire Date</mat-label>
-                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:calendar'" matPrefix></mat-icon>
+                        <fa-icon [icon]="['fas', 'calendar']" class="icon-size-5" matPrefix></fa-icon>
                         <input [formControlName]="'joined_on'" matInput [matDatepicker]="joinedOnPicker">
                         <mat-datepicker-toggle matSuffix [for]="joinedOnPicker"></mat-datepicker-toggle>
                         <mat-datepicker #joinedOnPicker></mat-datepicker>
