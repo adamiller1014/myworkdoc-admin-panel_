@@ -7,6 +7,10 @@ import { Subject } from 'rxjs';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 
+// Special Font Awesome Icons
+import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
+import { faChevronRight} from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector     : 'fuse-date-range',
     templateUrl  : './date-range.component.html',
@@ -29,6 +33,10 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     @ViewChild('pickerPanelOrigin', {read: ElementRef}) private _pickerPanelOrigin: ElementRef;
     @ViewChild('pickerPanel') private _pickerPanel: TemplateRef<any>;
     @HostBinding('class.fuse-date-range') private _defaultClassNames = true;
+
+    // Special Font Awesome Icons
+    faChevronLeft = faChevronLeft;
+    faChevronRight = faChevronRight;
 
     activeDates: { month1: Moment | null; month2: Moment | null } = {
         month1: null,

@@ -6,14 +6,22 @@ import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 import Swal from 'sweetalert2'
 
+// Special Font Awesome Icons
+import { faEye } from '@fortawesome/pro-solid-svg-icons';
+import { faEyeSlash } from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector     : 'auth-sign-in',
     templateUrl  : './sign-in.component.html',
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })
-export class AuthSignInComponent implements OnInit
-{
+export class AuthSignInComponent implements OnInit {
+
+    // Special Font Awesome Icons
+    faEye = faEye;
+    faEyeSlash = faEyeSlash;
+
     @ViewChild('signInNgForm') signInNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {

@@ -7,6 +7,12 @@ import { FuseAlertAppearance, FuseAlertType } from '@fuse/components/alert/alert
 import { FuseAlertService } from '@fuse/components/alert/alert.service';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 
+// Special Font Awesome Icons
+import { faCheckCircle } from '@fortawesome/pro-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/pro-solid-svg-icons';
+import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
+import { faExclamationCircle } from '@fortawesome/pro-solid-svg-icons';
+
 @Component({
     selector       : 'fuse-alert',
     templateUrl    : './alert.component.html',
@@ -16,8 +22,7 @@ import { FuseUtilsService } from '@fuse/services/utils/utils.service';
     animations     : fuseAnimations,
     exportAs       : 'fuseAlert'
 })
-export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
-{
+export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy {
     /* eslint-disable @typescript-eslint/naming-convention */
     static ngAcceptInputType_dismissible: BooleanInput;
     static ngAcceptInputType_dismissed: BooleanInput;
@@ -33,6 +38,12 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
     @Output() readonly dismissedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    // Special Font Awesome Icons
+    faCheckCircle = faCheckCircle;
+    faTimesCircle = faTimesCircle;
+    faInfoCircle = faInfoCircle;
+    faExclamationCircle = faExclamationCircle;
 
     /**
      * Constructor

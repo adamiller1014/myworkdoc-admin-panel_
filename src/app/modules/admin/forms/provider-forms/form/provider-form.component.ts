@@ -19,6 +19,7 @@ export class ProviderFormComponent implements OnInit {
         "active": true,
         "hidden": false,
         "default": true,
+        "type": "triage",
         "viewmode": "Combined",
         "pages": new Array({
             title: `Page 1`,
@@ -27,6 +28,7 @@ export class ProviderFormComponent implements OnInit {
         })
     };
     providerForm: FormGroup;
+    secondForm: FormGroup;
     /**
      * Constructor
      */
@@ -50,6 +52,10 @@ export class ProviderFormComponent implements OnInit {
             case_form_type_id     : [null, [Validators.required]],
         });
 
+        this.secondForm = this._formBuilder.group({
+            type: ['', Validators.required]
+          });
+
         this._route.params.subscribe(params => {
             if (params['id']) {
                 this.form_id = params['id'];
@@ -68,6 +74,7 @@ export class ProviderFormComponent implements OnInit {
         let formInfo = {
             form_info: form_data,
             active: form_data.active,
+            type: this.secondForm.get('type').value,
             case_form_type_id: this.providerForm.get('case_form_type_id').value
         }
         if (!this.form_id) {
@@ -111,6 +118,7 @@ export class ProviderFormComponent implements OnInit {
                 if (data.results.form_info)
                     this.form_data = data.results.form_info
                     this.providerForm.get('case_form_type_id').setValue(data.results.case_form_type_id);
+                    this.secondForm.get('type').setValue(data.results.type);
 
 
             }

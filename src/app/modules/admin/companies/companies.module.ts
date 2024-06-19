@@ -15,6 +15,14 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/pro-solid-svg-icons';
+import { fal } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
+import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fat } from '@fortawesome/pro-thin-svg-icons';
+
 import { SharedModule } from 'app/shared/shared.module';
 
 const exampleRoutes: Route[] = [
@@ -52,7 +60,11 @@ const exampleRoutes: Route[] = [
         SharedModule,
         MatCheckboxModule,
         MatDatepickerModule,
+        FontAwesomeModule,
     ]
 })
 export class CompaniesModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(fas, fab, fal, far, fad, fat);
+    }
 }

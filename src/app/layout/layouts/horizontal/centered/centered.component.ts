@@ -7,6 +7,9 @@ import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/co
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 
+// Special Font Awesome Icons
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
     selector     : 'centered-layout',
     templateUrl  : './centered.component.html',
@@ -17,6 +20,9 @@ export class CenteredLayoutComponent implements OnInit, OnDestroy
     navigation: Navigation;
     isScreenSmall: boolean;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    // Special Font Awesome Icons
+    faBars = faBars;
 
     /**
      * Constructor

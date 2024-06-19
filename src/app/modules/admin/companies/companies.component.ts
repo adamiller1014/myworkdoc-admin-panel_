@@ -307,12 +307,20 @@ export class CompaniesComponent implements OnInit {
         "Employee": "Clark Morgan"
     }]
 
+    /**
+     * The component filter state
+     */ 
+    filterValue: any = null;
+    filterStorageName: string = 'CompaniesFilter';
+    
     companies = []
+
     /**
      * Constructor
      */
     constructor(private _companiesServices: CompaniesService,private _router: Router) {
     }
+
     ngOnInit(): void {
         this.getCompanies();
 
@@ -326,6 +334,23 @@ export class CompaniesComponent implements OnInit {
             }
         })
     }
+
+    /**
+     * After view init
+     */
+    ngAfterViewInit(): void {
+        if (sessionStorage.getItem(this.filterStorageName)) {
+            this.filterValue = JSON.parse(sessionStorage.getItem(this.filterStorageName));
+        }
+    }
+
+    /**
+     * Before Leaving the page
+     */
+    ngOnDestroy() {
+        sessionStorage.setItem(this.filterStorageName, JSON.stringify(this.filterValue));
+    }
+
 
     gotoRow(row):void {
         this._router.navigate(['/companies/company/', row.data.id]);
