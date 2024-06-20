@@ -5,9 +5,9 @@ aws:
   
 definitions:
   services:
-    docker-4g:
+    docker-6g:
       type: docker
-      memory: 4096
+      memory: 6144
   caches:
     sonar: ~/.sonar/cache # Caching SonarCloud artifacts will speed up your build
   steps:
@@ -27,7 +27,7 @@ definitions:
           - npm install --quiet --legacy-peer-deps
           #- npm run sonar
     - step: &build-test-sonarcloud
-        size: 2x
+        size: 4x
         name: Build, test and analyze on SonarCloud
         caches:
           - node
@@ -66,7 +66,7 @@ definitions:
     # - Simplify with prod.
     #
     - step: &build-non-prod-myworkdoc-admin-panel
-        size: 2x
+        size: 4x
         name: Build myworkdoc-admin-panel and push to ECR
         oidc: true
         script:
@@ -88,7 +88,7 @@ definitions:
           - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:latest
           - docker push --all-tags $ECR_URL
         services:
-          - docker-4g
+          - docker-6g
         caches:
           - docker
       #    
@@ -125,7 +125,7 @@ definitions:
           - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:latest
           - docker push --all-tags $ECR_URL
         services:
-          - docker-4g
+          - docker-6g
         caches:
           - docker        
   # STEP:
@@ -134,7 +134,7 @@ definitions:
     # Deploys the MyWorkDoc UI Portal image from ECR to ECS and updates the service
     #
     - step: &deploy-non-prod-myworkdoc-admin-panel
-        size: 2x
+        size: 4x
         name: Update ECS Service
         oidc: true
         script:
@@ -169,7 +169,7 @@ definitions:
           - echo $UPDATED_TASK_DEFINITION
           - aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --task-definition ${UPDATED_TASK_DEFINITION} --force-new-deployment --enable-execute-command
         services:
-          - docker-4g
+          - docker-6g
         caches:
           - docker  
   # STEP:
@@ -213,7 +213,7 @@ definitions:
           - echo $UPDATED_TASK_DEFINITION
           - aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --task-definition ${UPDATED_TASK_DEFINITION} --force-new-deployment --enable-execute-command
         services:
-          - docker-4g
+          - docker-6g
         caches:
           - docker                     
     #    
@@ -227,7 +227,7 @@ definitions:
     # - Simplify with prod.
     #
     - step: &build-selectprod-myworkdoc-admin-panel
-        size: 2x
+        size: 4x
         name: Build myworkdoc-admin-panel and push to ECR
         oidc: true
         script:
@@ -251,7 +251,7 @@ definitions:
           - docker tag build_myworkdoc-admin-panel:latest $ECR_URL:latest
           - docker push --all-tags $ECR_URL
         services:
-          - docker-4g
+          - docker-6g
         caches:
           - docker
   # STEP:
@@ -260,7 +260,7 @@ definitions:
     # Deploys the MyWorkDoc UI Portal image from ECR to ECS and updates the service
     #
     - step: &deploy-selectprod-myworkdoc-admin-panel
-        size: 2x
+        size: 4x
         name: Update ECS Service
         oidc: true
         script:
@@ -297,7 +297,7 @@ definitions:
           - echo $UPDATED_TASK_DEFINITION
           - aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --task-definition ${UPDATED_TASK_DEFINITION} --force-new-deployment --enable-execute-command
         services:
-          - docker-4g
+          - docker-6g
         caches:
           - docker                       
 pipelines:
